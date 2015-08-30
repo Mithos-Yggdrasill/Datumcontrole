@@ -38,6 +38,26 @@ public interface ErrorMessages {
      * The error-message-code referring to a non valid hope number.
      */
     public final static String PRODUCT_HOPE_NEGATIVE = "De hope moet positief zijn";
+
+    /**
+     * The error-message-code referring to a name consisting of non-valid characters.
+     * name.
+     */
+    public final static String PRODUCT_NAME_ALPHANUMERIC = "De naam mag enkel uit een combinatie van letters and cijfers bestaan.";
+
+    /**
+     * The error-message-code referring to a name with less characters than allowed.
+     * name.
+     */
+    public final static String PRODUCT_NAME_MIN_LENGTH = "De naam moet minstens " + Product.MIN_AMOUNT_OF_CHARACTERS_NAME + " letters bevatten";
+    
+    /**
+     * The error-message-code referring to a name with less characters than allowed.
+     * name.
+     */
+    public final static String PRODUCT_NAME_MAX_LENGTH = "De naam mag maximaal uit " + Product.MAX_AMOUNT_OF_CHARACTERS_NAME + " letters bestaan";
+    
+    
     
     /**
      * The error-message-code referring to an error occurred when the given
@@ -77,12 +97,6 @@ public interface ErrorMessages {
      * The error-message-code referring to a date in the past.
      */
     public final static String DATE_PAST = "err_date_past";
-
-    /**
-     * The error-message-code referring to a non valid length of the product
-     * name.
-     */
-    public final static String PRODUCT_NAME = "err_prod_name";
 
     /**
      * The error-message-code referring to a non valid category.

@@ -88,6 +88,18 @@ public class SQLiteProductDatabaseTest {
     public void getProductByEan_DatabaseException_When_no_product_with_that_ean() throws DatabaseException {
         db.getProductByEan(roomijs.getEan());
     }
+
+    @Test
+    public void getProductByHope_Returns_Product_with_that_hope() throws DatabaseException {
+        db.addProduct(roomijs);
+        productsToDeleteAfterTest.add(roomijs);
+        assertEquals(roomijs, db.getProductByHope(roomijs.getHope()));
+    }
+
+    @Test(expected = DatabaseException.class)
+    public void getProductByHope_DatabaseException_When_no_product_with_that_hope() throws DatabaseException {
+        db.getProductByHope(roomijs.getHope());
+    }
     
     @Test
     public void getAllProducts_Returns_all_products() throws DatabaseException {

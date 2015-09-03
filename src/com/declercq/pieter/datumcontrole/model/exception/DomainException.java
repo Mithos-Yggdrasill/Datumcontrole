@@ -1,14 +1,9 @@
 package com.declercq.pieter.datumcontrole.model.exception;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.TreeMap;
-
 /**
  *
  * @author Pieter Declercq
+ * @version 3.0
  */
 public class DomainException extends Exception {
 

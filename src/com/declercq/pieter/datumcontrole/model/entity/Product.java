@@ -2,6 +2,7 @@ package com.declercq.pieter.datumcontrole.model.entity;
 
 import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
+import java.util.Objects;
 
 /**
  * This class represents an article.
@@ -111,7 +112,7 @@ public class Product {
         name = name.replaceAll(System.getProperty("line.separator"), "");
         name = name.replaceAll("\r|\n", "");
         name = name.toLowerCase().trim();
-        if (!name.matches("^[a-zA-Z0-9 ]+$")) {
+        if (!name.matches("^[.,a-zA-Z0-9 ]+$")) {
             throw new DomainException(ErrorMessages.PRODUCT_NAME_ALPHANUMERIC);
         }
         if (name.length() < MIN_AMOUNT_OF_CHARACTERS_NAME) {
@@ -123,4 +124,36 @@ public class Product {
         this.name = name;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 83 * hash + Objects.hashCode(this.ean);
+        hash = 83 * hash + this.hope;
+        hash = 83 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Product other = (Product) obj;
+        if (!Objects.equals(this.ean, other.ean)) {
+            return false;
+        }
+        if (this.hope != other.hope) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    
 }

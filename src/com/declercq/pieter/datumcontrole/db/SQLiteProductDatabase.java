@@ -11,8 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -148,8 +146,22 @@ public class SQLiteProductDatabase implements IProductDatabase {
     }
 
     @Override
-    public void updateProduct(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateProduct(Product product) throws DatabaseException {
+        if (product == null) {
+            throw new DatabaseException(ErrorMessages.PRODUCT_NULL);
+        }
+        String query = "UPDATE product SET hope = ?, name = ? WHERE ean = ?";
+        initiateStatement(query);
+        try {
+            statement.setInt(1, product.getHope());
+            statement.setString(2, product.getName());
+            statement.setLong(3, product.getEan());
+            statement.execute();
+        } catch (SQLException e) {
+            throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
+        } finally {
+            closeConnection();
+        }
     }
 
     @Override
@@ -185,6 +197,5 @@ public class SQLiteProductDatabase implements IProductDatabase {
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_CLOSSING_CONNECTION, e);
         }
-
     }
 }

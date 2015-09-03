@@ -7,6 +7,7 @@ package com.declercq.pieter.datumcontrole.db;
 
 import com.declercq.pieter.datumcontrole.model.entity.Product;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
+import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -106,6 +107,30 @@ public class SQLiteProductDatabaseTest {
         assertEquals(size, db.getAllProducts().size());
     }
 
+    @Test
+    public void updateProduct_Update_info_of_the_product() throws DatabaseException, DomainException {
+        db.addProduct(roomijs);
+        productsToDeleteAfterTest.add(roomijs);
+        int hope = 9876;
+        String name = "nieuwe naam";
+        roomijs.setHope(hope);
+        roomijs.setName(name);
+        db.updateProduct(roomijs);
+        assertEquals(hope, db.getProductByEan(roomijs.getEan()).getHope());
+        assertEquals(name, db.getProductByEan(roomijs.getEan()).getName());
+    }
+    
+    @Test(expected = DatabaseException.class)
+    public void updateProduct_DatabaseException_If_product_is_null() throws DatabaseException, DomainException {
+        db.addProduct(roomijs);
+        productsToDeleteAfterTest.add(roomijs);
+        int hope = 9876;
+        String name = "nieuwe naam";
+        roomijs.setHope(hope);
+        roomijs.setName(name);
+        db.updateProduct(null);
+    }
+    
     @Test
     public void deleteProduct_Removes_product_from_database() throws DatabaseException {
         db.addProduct(roomijs);

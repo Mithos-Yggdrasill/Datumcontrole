@@ -21,12 +21,10 @@ public class SQLiteProductDatabase implements IProductDatabase {
 
     private Connection connection;
     private PreparedStatement statement;
-    String url;
 
-    public SQLiteProductDatabase(String url) throws DatabaseException {
+    public SQLiteProductDatabase() throws DatabaseException {
         try {
             Class.forName("org.sqlite.JDBC");
-            this.url = url;
         } catch (ClassNotFoundException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_DRIVER_NOT_LOADED, e);
         }
@@ -185,8 +183,7 @@ public class SQLiteProductDatabase implements IProductDatabase {
 
     private void initiateStatement(String query) throws DatabaseException {
         try {
-            connection = DriverManager.getConnection(url);
-            System.out.println(connection);
+            connection = DriverManager.getConnection("jdbc:sqlite:‪DatumControle.sqlite");
             statement = connection.prepareStatement(query);
         } catch (SQLException ex) {
             throw new DatabaseException(ErrorMessages.DATABASE_NOT_FOUND, ex);

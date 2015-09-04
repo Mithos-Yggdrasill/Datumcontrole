@@ -12,12 +12,12 @@ public interface ErrorMessages {
     /**
      * The error-message-code referring to a non valid length of the barcode.
      */
-    public final static String PRODUCT_EAN_MIN_LENGTH = "De barcode moet minstens " + Product.MIN_AMOUNT_OF_CIPHERS_EAN + " cijfers bevatten";
+    public final static String PRODUCT_EAN_MIN_LENGTH = "De barcode moet minstens " + Product.MIN_AMOUNT_OF_DIGITS_EAN + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non valid length of the barcode.
      */
-    public final static String PRODUCT_EAN_MAX_LENGTH = "De barcode mag maximaal " + Product.MAX_AMOUNT_OF_CIPHERS_EAN + " cijfers bevatten";
+    public final static String PRODUCT_EAN_MAX_LENGTH = "De barcode mag maximaal " + Product.MAX_AMOUNT_OF_DIGITS_EAN + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non positive value of the barcode.
@@ -28,12 +28,12 @@ public interface ErrorMessages {
      * The error-message-code referring to a hope number with less digits than
      * allowed.
      */
-    public final static String PRODUCT_HOPE_MIN_LENGTH = "De hope moet minstens " + Product.MIN_AMOUNT_OF_CIPHERS_HOPE + " cijfers bevatten";
+    public final static String PRODUCT_HOPE_MIN_LENGTH = "De hope moet minstens " + Product.MIN_AMOUNT_OF_DIGITS_HOPE + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non valid hope number.
      */
-    public final static String PRODUCT_HOPE_MAX_LENGTH = "De hope mag maximaal " + Product.MAX_AMOUNT_OF_CIPHERS_HOPE + " cijfers bevatten";
+    public final static String PRODUCT_HOPE_MAX_LENGTH = "De hope mag maximaal " + Product.MAX_AMOUNT_OF_DIGITS_HOPE + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non valid hope number.

@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.declercq.pieter.datumcontrole.db;
 
 import com.declercq.pieter.datumcontrole.model.entity.Product;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -35,7 +27,7 @@ public class SQLiteProductDatabaseTest {
 
     @Before
     public void setUp() throws Exception {
-        db = new SQLiteProductDatabase();
+        db = new SQLiteProductDatabase("jdbc:sqlite:‪DatumControle.sqlite");
         size = db.size();
         productsToDeleteAfterTest = new ArrayList<>();
         roomijs = new Product(5412121000114L, 16308, "2.5L ROOMIJS VANILLE");
@@ -101,7 +93,7 @@ public class SQLiteProductDatabaseTest {
     public void getProductByHope_DatabaseException_When_no_product_with_that_hope() throws DatabaseException {
         db.getProductByHope(roomijs.getHope());
     }
-    
+
     @Test
     public void getAllProducts_Returns_all_products() throws DatabaseException {
         assertEquals(size, db.getAllProducts().size());
@@ -119,7 +111,7 @@ public class SQLiteProductDatabaseTest {
         assertEquals(hope, db.getProductByEan(roomijs.getEan()).getHope());
         assertEquals(name, db.getProductByEan(roomijs.getEan()).getName());
     }
-    
+
     @Test(expected = DatabaseException.class)
     public void updateProduct_DatabaseException_If_product_is_null() throws DatabaseException, DomainException {
         db.addProduct(roomijs);
@@ -130,7 +122,7 @@ public class SQLiteProductDatabaseTest {
         roomijs.setName(name);
         db.updateProduct(null);
     }
-    
+
     @Test
     public void deleteProduct_Removes_product_from_database() throws DatabaseException {
         db.addProduct(roomijs);

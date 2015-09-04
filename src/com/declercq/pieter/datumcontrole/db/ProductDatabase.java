@@ -9,7 +9,7 @@ import java.util.Collection;
  * @author Pieter Declercq
  * @version 3.0
  */
-public interface IProductDatabase {
+public interface ProductDatabase {
 
     public int size() throws DatabaseException;
     

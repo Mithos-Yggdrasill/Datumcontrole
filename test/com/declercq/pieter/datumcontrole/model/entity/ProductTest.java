@@ -51,7 +51,7 @@ public class ProductTest {
      */
     @Test
     public void setEan_Param_is_new_ean() throws DomainException {
-        Long newEan = pow(10L, Product.MIN_AMOUNT_OF_CIPHERS_EAN - 1);
+        Long newEan = pow(10L, Product.MIN_AMOUNT_OF_DIGITS_EAN - 1);
         chips.setEan(newEan);
         assertEquals(newEan, chips.getEan());
     }
@@ -64,44 +64,44 @@ public class ProductTest {
 
     @Test(expected = DomainException.class)
     public void setEan_DomainException_If_param_has_less_than_MIN_digits() throws DomainException {
-        Long newEan = pow(10L, Product.MIN_AMOUNT_OF_CIPHERS_EAN - 2);
+        Long newEan = pow(10L, Product.MIN_AMOUNT_OF_DIGITS_EAN - 2);
         chips.setEan(newEan);
     }
 
     @Test(expected = DomainException.class)
     public void setEan_DomainException_If_param_has_more_than_MAX_digits() throws DomainException {
-        Long newEan = pow(10L, Product.MAX_AMOUNT_OF_CIPHERS_EAN);
+        Long newEan = pow(10L, Product.MAX_AMOUNT_OF_DIGITS_EAN);
         chips.setEan(newEan);
     }
 
     @Test(expected = DomainException.class)
     public void setEan_DomainException_If_param_is_negative() throws DomainException {
-        Long newEan = pow(-10L, Product.MIN_AMOUNT_OF_CIPHERS_EAN - 1);;
+        Long newEan = pow(-10L, Product.MIN_AMOUNT_OF_DIGITS_EAN - 1);;
         chips.setEan(newEan);
     }
 
     @Test
     public void setHope_Param_is_new_hope() throws DomainException {
-        int newHope = (int) Math.pow(10, Product.MIN_AMOUNT_OF_CIPHERS_HOPE - 1);
+        int newHope = (int) Math.pow(10, Product.MIN_AMOUNT_OF_DIGITS_HOPE - 1);
         chips.setHope(newHope);
         assertEquals(newHope, chips.getHope());
     }
 
     @Test(expected = DomainException.class)
     public void setHope_DomainException_If_param_has_less_than_MIN_digits() throws DomainException {
-        int newHope = (int) Math.pow(10, Product.MIN_AMOUNT_OF_CIPHERS_HOPE - 2);
+        int newHope = (int) Math.pow(10, Product.MIN_AMOUNT_OF_DIGITS_HOPE - 2);
         chips.setHope(newHope);
     }
 
     @Test(expected = DomainException.class)
     public void setHope_DomainException_If_param_has_more_than_MAX_digits() throws DomainException {
-        int newHope = (int) Math.pow(10, Product.MAX_AMOUNT_OF_CIPHERS_HOPE);
+        int newHope = (int) Math.pow(10, Product.MAX_AMOUNT_OF_DIGITS_HOPE);
         chips.setHope(newHope);
     }
 
     @Test(expected = DomainException.class)
     public void setHope_DomainException_If_param_is_negative() throws DomainException {
-        int newHope = (int) Math.pow(-10, Product.MIN_AMOUNT_OF_CIPHERS_HOPE - 1);
+        int newHope = (int) Math.pow(-10, Product.MIN_AMOUNT_OF_DIGITS_HOPE - 1);
         chips.setHope(newHope);
     }
 

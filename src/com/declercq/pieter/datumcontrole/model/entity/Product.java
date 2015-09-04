@@ -16,22 +16,22 @@ public class Product {
     /**
      * The minimum amount of digits the ean of a product must have.
      */
-    public static final int MIN_AMOUNT_OF_CIPHERS_EAN = 8;
+    public static final int MIN_AMOUNT_OF_DIGITS_EAN = 8;
 
     /**
      * The maximum amount of digits the ean of a product must have.
      */
-    public static final int MAX_AMOUNT_OF_CIPHERS_EAN = 13;
+    public static final int MAX_AMOUNT_OF_DIGITS_EAN = 13;
 
     /**
      * The minimum amount of digits the hope of a product must have.
      */
-    public static final int MIN_AMOUNT_OF_CIPHERS_HOPE = 4;
+    public static final int MIN_AMOUNT_OF_DIGITS_HOPE = 4;
 
     /**
      * The maximum amount of digits the hope of a product must have.
      */
-    public static final int MAX_AMOUNT_OF_CIPHERS_HOPE = 8;
+    public static final int MAX_AMOUNT_OF_DIGITS_HOPE = 8;
 
     /**
      * The minimum amount of characters the name of a product must have.
@@ -78,10 +78,10 @@ public class Product {
         if (ean < 0) {
             throw new DomainException(ErrorMessages.PRODUCT_EAN_NEGATIVE);
         }
-        if (String.valueOf(ean).length() < MIN_AMOUNT_OF_CIPHERS_EAN) {
+        if (String.valueOf(ean).length() < MIN_AMOUNT_OF_DIGITS_EAN) {
             throw new DomainException(ErrorMessages.PRODUCT_EAN_MIN_LENGTH);
         }
-        if (String.valueOf(ean).length() > MAX_AMOUNT_OF_CIPHERS_EAN) {
+        if (String.valueOf(ean).length() > MAX_AMOUNT_OF_DIGITS_EAN) {
             throw new DomainException(ErrorMessages.PRODUCT_EAN_MAX_LENGTH);
         }
         this.ean = ean;
@@ -95,10 +95,10 @@ public class Product {
         if (hope < 0) {
             throw new DomainException(ErrorMessages.PRODUCT_HOPE_NEGATIVE);
         }
-        if (String.valueOf(hope).length() < MIN_AMOUNT_OF_CIPHERS_HOPE) {
+        if (String.valueOf(hope).length() < MIN_AMOUNT_OF_DIGITS_HOPE) {
             throw new DomainException(ErrorMessages.PRODUCT_HOPE_MIN_LENGTH);
         }
-        if (String.valueOf(hope).length() > MAX_AMOUNT_OF_CIPHERS_HOPE) {
+        if (String.valueOf(hope).length() > MAX_AMOUNT_OF_DIGITS_HOPE) {
             throw new DomainException(ErrorMessages.PRODUCT_HOPE_MAX_LENGTH);
         }
         this.hope = hope;
@@ -153,7 +153,4 @@ public class Product {
         }
         return true;
     }
-
-    
-    
 }

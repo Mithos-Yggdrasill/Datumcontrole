@@ -17,14 +17,16 @@ import java.util.Collection;
  * @author Pieter Declercq
  * @version 3.0
  */
-public class SQLiteProductDatabase implements IProductDatabase {
+public class SQLiteProductDatabase implements ProductDatabase {
 
     private Connection connection;
     private PreparedStatement statement;
+    String url;
 
-    public SQLiteProductDatabase() throws DatabaseException {
+    public SQLiteProductDatabase(String url) throws DatabaseException {
         try {
             Class.forName("org.sqlite.JDBC");
+            this.url = url;
         } catch (ClassNotFoundException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_DRIVER_NOT_LOADED, e);
         }
@@ -183,7 +185,7 @@ public class SQLiteProductDatabase implements IProductDatabase {
 
     private void initiateStatement(String query) throws DatabaseException {
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:‪DatumControle.sqlite");
+            connection = DriverManager.getConnection(url);
             statement = connection.prepareStatement(query);
         } catch (SQLException ex) {
             throw new DatabaseException(ErrorMessages.DATABASE_NOT_FOUND, ex);

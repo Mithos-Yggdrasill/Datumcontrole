@@ -32,7 +32,7 @@ public class SQLiteRepository implements Repository {
     }
     
     @Override
-    public Product getProductByEan(Long ean) throws DatabaseException {
+    public Product getProductByEan(long ean) throws DatabaseException {
         return productDb.getProductByEan(ean);
     }
     
@@ -52,7 +52,7 @@ public class SQLiteRepository implements Repository {
     }
     
     @Override
-    public void deleteProduct(Long ean) throws DatabaseException {
+    public void deleteProduct(long ean) throws DatabaseException {
         productDb.deleteProduct(ean);
     }
     

@@ -15,7 +15,7 @@ public interface Repository {
     
     public void addProduct(Product product) throws DatabaseException;
     
-    public Product getProductByEan(Long ean) throws DatabaseException;
+    public Product getProductByEan(long ean) throws DatabaseException;
     
     public Product getProductByHope(int hope) throws DatabaseException;
     
@@ -23,7 +23,7 @@ public interface Repository {
     
     public void updateProduct(Product product) throws DatabaseException;
     
-    public void deleteProduct(Long ean) throws DatabaseException;
+    public void deleteProduct(long ean) throws DatabaseException;
 
     public void addCategory(Category category) throws DatabaseException;
     

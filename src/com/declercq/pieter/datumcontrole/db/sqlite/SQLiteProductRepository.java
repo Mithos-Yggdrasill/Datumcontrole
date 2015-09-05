@@ -66,10 +66,7 @@ public class SQLiteProductRepository implements ProductRepository {
     }
 
     @Override
-    public Product getProductByEan(Long ean) throws DatabaseException {
-        if (ean == null) {
-            throw new IllegalArgumentException(ErrorMessages.EAN_NULL);
-        }
+    public Product getProductByEan(long ean) throws DatabaseException {
         String query = "SELECT * FROM product WHERE ean = ?";
         Product product = null;
         initiateStatement(query);
@@ -101,7 +98,7 @@ public class SQLiteProductRepository implements ProductRepository {
             statement.setInt(1, hope);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Long ean = result.getLong("ean");
+                long ean = result.getLong("ean");
                 String name = result.getString("name");
                 product = new Product(ean, hope, name);
             }
@@ -158,10 +155,7 @@ public class SQLiteProductRepository implements ProductRepository {
     }
 
     @Override
-    public void deleteProduct(Long ean) throws DatabaseException {
-        if (ean == null) {
-            throw new IllegalArgumentException(ErrorMessages.EAN_NULL);
-        }
+    public void deleteProduct(long ean) throws DatabaseException {
         String query = "DELETE FROM product WHERE ean = ?";
         initiateStatement(query);
         try {

@@ -27,7 +27,7 @@ public class Product {
     /**
      * The EAN of the product.
      */
-    private Long ean;
+    private long ean;
 
     /**
      * The hope of the product.
@@ -42,20 +42,17 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long ean, int hope, String name) {
+    public Product(long ean, int hope, String name) {
         setEan(ean);
         setHope(hope);
         setName(name);
     }
 
-    public Long getEan() {
+    public long getEan() {
         return ean;
     }
 
-    public void setEan(Long ean) {
-        if (ean == null) {
-            throw new IllegalArgumentException(ErrorMessages.EAN_NULL);
-        }
+    public void setEan(long ean) {
         if (ean < 0) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_EAN_NEGATIVE);
         }

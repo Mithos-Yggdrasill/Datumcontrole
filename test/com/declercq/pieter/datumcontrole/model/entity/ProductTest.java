@@ -47,32 +47,26 @@ public class ProductTest {
 
     @Test
     public void setEan_Param_is_new_ean() {
-        Long newEan = pow(10L, Product.EAN_MIN_LENGTH - 1);
+        long newEan = pow(10L, Product.EAN_MIN_LENGTH - 1);
         chips.setEan(newEan);
         assertEquals(newEan, chips.getEan());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setEan_IllegalArgumentException_If_param_is_null() {
-        Long newEan = null;
-        chips.setEan(newEan);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void setEan_IllegalArgumentException_If_param_has_less_than_MIN_digits() {
-        Long newEan = pow(10L, Product.EAN_MIN_LENGTH - 2);
+        long newEan = pow(10L, Product.EAN_MIN_LENGTH - 2);
         chips.setEan(newEan);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setEan_IllegalArgumentException_If_param_has_more_than_MAX_digits() {
-        Long newEan = pow(10L, Product.EAN_MAX_LENGTH);
+        long newEan = pow(10L, Product.EAN_MAX_LENGTH);
         chips.setEan(newEan);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setEan_IllegalArgumentException_If_param_is_negative() {
-        Long newEan = pow(-10L, Product.EAN_MIN_LENGTH - 1);
+        long newEan = pow(-10L, Product.EAN_MIN_LENGTH - 1);
         chips.setEan(newEan);
     }
 

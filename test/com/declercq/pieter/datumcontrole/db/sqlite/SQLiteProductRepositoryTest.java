@@ -72,12 +72,6 @@ public class SQLiteProductRepositoryTest {
         assertEquals(roomijs, db.getProductByEan(roomijs.getEan()));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void getProductByEan_IllegalArgumentException_When_ean_is_null() throws DatabaseException {
-        Long ean = null;
-        db.getProductByEan(ean);
-    }
-
     @Test(expected = ProductNotFoundException.class)
     public void getProductByEan_ProductNotFoundException_When_no_product_with_that_ean() throws DatabaseException {
         db.getProductByEan(roomijs.getEan());
@@ -130,12 +124,6 @@ public class SQLiteProductRepositoryTest {
         size = db.size();
         db.deleteProduct(roomijs.getEan());
         assertEquals(size - 1, db.size());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void deleteProduct_IllegalArgumentException_When_ean_is_null() throws DatabaseException {
-        Long ean = null;
-        db.deleteProduct(ean);
     }
 
 }

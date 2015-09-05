@@ -59,11 +59,11 @@ public class Location {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Location)) {
             return false;
         }
         final Location other = (Location) obj;
-        return true;
+        return Objects.equals(this.name, other.name);
     }
 
     @Override

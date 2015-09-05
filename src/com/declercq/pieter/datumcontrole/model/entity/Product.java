@@ -122,20 +122,13 @@ public class Product {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Product)) {
             return false;
         }
         final Product other = (Product) obj;
-        if (!Objects.equals(this.ean, other.ean)) {
-            return false;
-        }
-        if (this.hope != other.hope) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.ean, other.ean)
+                && this.hope == other.hope
+                && Objects.equals(this.name, other.name);
     }
 
     @Override

@@ -102,20 +102,13 @@ public class Category {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Category)) {
             return false;
         }
         final Category other = (Category) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (this.sublocations != other.sublocations) {
-            return false;
-        }
-        if (!Objects.equals(this.color, other.color)) {
-            return false;
-        }
-        return true;
+        return (Objects.equals(this.name, other.name)) 
+                && (this.sublocations == other.sublocations) 
+                && (Objects.equals(this.color, other.color));
     }
 
     @Override

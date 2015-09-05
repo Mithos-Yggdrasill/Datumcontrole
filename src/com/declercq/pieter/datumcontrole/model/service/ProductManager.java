@@ -1,6 +1,6 @@
 package com.declercq.pieter.datumcontrole.model.service;
 
-import com.declercq.pieter.datumcontrole.db.IProductDatabase;
+import com.declercq.pieter.datumcontrole.db.ProductDatabase;
 import com.declercq.pieter.datumcontrole.db.SQLiteProductDatabase;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
@@ -14,24 +14,20 @@ import java.util.Collection;
  */
 public class ProductManager {
 
-    private IProductDatabase db;
+    private ProductDatabase db;
 
-    public ProductManager(String Dburl) throws ServiceException {
-        try {
-            db = new SQLiteProductDatabase(Dburl);
-        } catch (DatabaseException ex) {
-            throw new ServiceException(ex);
-        }
+    public ProductManager(ProductDatabase db) {
+        this.db = db;
     }
 
-    public int getNumberOfProducts() throws ServiceException{
+    public int getNumberOfProducts() throws ServiceException {
         try {
             return db.size();
         } catch (DatabaseException ex) {
             throw new ServiceException(ex);
         }
     }
-    
+
     public void addProduct(Product product) throws ServiceException {
         try {
             db.addProduct(product);

@@ -1,5 +1,6 @@
 package com.declercq.pieter.datumcontrole.model.exception;
 
+import com.declercq.pieter.datumcontrole.model.entity.Category;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
 
 public interface ErrorMessages {
@@ -12,12 +13,12 @@ public interface ErrorMessages {
     /**
      * The error-message-code referring to a non valid length of the barcode.
      */
-    public final static String PRODUCT_EAN_MIN_LENGTH = "De barcode moet minstens " + Product.MIN_AMOUNT_OF_CIPHERS_EAN + " cijfers bevatten";
+    public final static String PRODUCT_EAN_MIN_LENGTH = "De barcode moet minstens " + Product.MIN_AMOUNT_OF_DIGITS_EAN + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non valid length of the barcode.
      */
-    public final static String PRODUCT_EAN_MAX_LENGTH = "De barcode mag maximaal " + Product.MAX_AMOUNT_OF_CIPHERS_EAN + " cijfers bevatten";
+    public final static String PRODUCT_EAN_MAX_LENGTH = "De barcode mag maximaal " + Product.MAX_AMOUNT_OF_DIGITS_EAN + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non positive value of the barcode.
@@ -28,12 +29,12 @@ public interface ErrorMessages {
      * The error-message-code referring to a hope number with less digits than
      * allowed.
      */
-    public final static String PRODUCT_HOPE_MIN_LENGTH = "De hope moet minstens " + Product.MIN_AMOUNT_OF_CIPHERS_HOPE + " cijfers bevatten";
+    public final static String PRODUCT_HOPE_MIN_LENGTH = "De hope moet minstens " + Product.MIN_AMOUNT_OF_DIGITS_HOPE + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non valid hope number.
      */
-    public final static String PRODUCT_HOPE_MAX_LENGTH = "De hope mag maximaal " + Product.MAX_AMOUNT_OF_CIPHERS_HOPE + " cijfers bevatten";
+    public final static String PRODUCT_HOPE_MAX_LENGTH = "De hope mag maximaal " + Product.MAX_AMOUNT_OF_DIGITS_HOPE + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non valid hope number.
@@ -44,8 +45,10 @@ public interface ErrorMessages {
      * The error-message-code referring to a name consisting of non-valid
      * characters.
      */
-    public final static String PRODUCT_NAME_ALPHANUMERIC = "De naam mag enkel uit een combinatie van letters and cijfers bestaan.";
+    public final static String NAME_ALPHANUMERIC = "De naam mag enkel uit een combinatie van letters and cijfers bestaan.";
 
+    public final static String NAME_NULL = "Er werd null meegegeven als naam";
+    
     /**
      * The error-message-code referring to a name with less characters than
      * allowed.
@@ -88,30 +91,37 @@ public interface ErrorMessages {
     public final static String PRODUCT_NOT_FOUND_EAN = "Er bestaat geen product met die barcode";
     
     public final static String PRODUCT_NOT_FOUND_HOPE = "Er bestaat geen product met die hope";
+
+    /**
+     * The error-message-code referring to a name with less characters than
+     * allowed.
+     */
+    public final static String CATEGORY_NAME_MIN_LENGTH = "De naam moet minstens " + Category.MIN_AMOUNT_OF_CHARACTERS_NAME + " letters bevatten";
+
+    /**
+     * The error-message-code referring to a name with less characters than
+     * allowed.
+     */
+    public final static String CATEGORY_NAME_MAX_LENGTH = "De naam mag maximaal uit " + Category.MAX_AMOUNT_OF_CHARACTERS_NAME + " letters bestaan";
     
+    public final static String COLOR_HEXADECIMAL = "De kleur moet in hexadecimaal formaat gegeven zijn.";
+    
+    public final static String COLOR_NULL = "Er werd null meegegeven als kleur";
+    
+    public final static String ID_NULL = "Er werd null meegegeven als id";
     
     
     /**
      * The error-message-code referring to an error occurred when the given
      * category is null.
      */
-    public static final String CATEGORY_NULL = "err_cat_null";
+    public static final String CATEGORY_NULL = "Er werd null meegegeven als category";
 
     /**
      * The error-message-code referring to a non valid length of the category
      * name.
      */
     public final static String CATEGORY_NAME = "err_cat_name";
-
-    /**
-     * The error-message-code referring to a non valid spot.
-     */
-    public final static String CATEGORY_SPOT = "err_cat_spot";
-
-    /**
-     * The error-message-code referring to a non valid amount of subdomains.
-     */
-    public final static String CATEGORY_SUBDOMAINS = "err_cat_sub";
 
     /**
      * The error-message-code referring to an error occurred when the searched
@@ -123,7 +133,7 @@ public interface ErrorMessages {
      * The error-message-code referring to an error occurred when the database
      * is already in the database.
      */
-    public final static String CATEGORY_ALREADY_EXISTS = "err_catdb_cat_already_exists";
+    public final static String CATEGORY_ALREADY_EXISTS = "Er bestaat reeds een categorie met die naam";
 
     /**
      * The error-message-code referring to a date in the past.

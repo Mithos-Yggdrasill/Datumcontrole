@@ -1,6 +1,8 @@
 package com.declercq.pieter.datumcontrole.model.service;
 
+import com.declercq.pieter.datumcontrole.db.SQLiteProductDatabase;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
+import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ServiceException;
 import java.util.ArrayList;
@@ -26,8 +28,8 @@ public class ProductManagerTest {
     }
 
     @Before
-    public void setUp() throws ServiceException, DomainException {
-        service = new ProductManager("jdbc:sqlite:‪DatumControle.sqlite");
+    public void setUp() throws ServiceException, DomainException, DatabaseException {
+        service = new ProductManager(new SQLiteProductDatabase("jdbc:sqlite:‪DatumControle.sqlite"));
         size = service.getNumberOfProducts();
         productsToDeleteAfterTest = new ArrayList<>();
         roomijs = new Product(5412121000114L, 16308, "2.5L ROOMIJS VANILLE");

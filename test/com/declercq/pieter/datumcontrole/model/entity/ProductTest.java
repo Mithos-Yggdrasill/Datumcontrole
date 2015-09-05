@@ -127,6 +127,12 @@ public class ProductTest {
     }
 
     @Test(expected = DomainException.class)
+    public void setName_DomainException_If_param_is_null() throws DomainException {
+        String newName = null;
+        chips.setName(newName);
+    }
+    
+    @Test(expected = DomainException.class)
     public void setName_DomainException_If_param_does_not_only_consists_of_alphanumeric_char() throws DomainException {
         String newName = "<?php echo lol; ?php>nieuwe productnaam1";
         chips.setName(newName);

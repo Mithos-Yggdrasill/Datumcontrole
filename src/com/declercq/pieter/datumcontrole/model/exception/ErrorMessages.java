@@ -1,5 +1,6 @@
 package com.declercq.pieter.datumcontrole.model.exception;
 
+import com.declercq.pieter.datumcontrole.model.entity.Category;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
 
 public interface ErrorMessages {
@@ -44,8 +45,10 @@ public interface ErrorMessages {
      * The error-message-code referring to a name consisting of non-valid
      * characters.
      */
-    public final static String PRODUCT_NAME_ALPHANUMERIC = "De naam mag enkel uit een combinatie van letters and cijfers bestaan.";
+    public final static String NAME_ALPHANUMERIC = "De naam mag enkel uit een combinatie van letters and cijfers bestaan.";
 
+    public final static String NAME_NULL = "Er werd null meegegeven als naam";
+    
     /**
      * The error-message-code referring to a name with less characters than
      * allowed.
@@ -88,6 +91,22 @@ public interface ErrorMessages {
     public final static String PRODUCT_NOT_FOUND_EAN = "Er bestaat geen product met die barcode";
     
     public final static String PRODUCT_NOT_FOUND_HOPE = "Er bestaat geen product met die hope";
+
+    /**
+     * The error-message-code referring to a name with less characters than
+     * allowed.
+     */
+    public final static String CATEGORY_NAME_MIN_LENGTH = "De naam moet minstens " + Category.MIN_AMOUNT_OF_CHARACTERS_NAME + " letters bevatten";
+
+    /**
+     * The error-message-code referring to a name with less characters than
+     * allowed.
+     */
+    public final static String CATEGORY_NAME_MAX_LENGTH = "De naam mag maximaal uit " + Category.MAX_AMOUNT_OF_CHARACTERS_NAME + " letters bestaan";
+    
+    public final static String COLOR_HEXADECIMAL = "De kleur moet in hexadecimaal formaat gegeven zijn.";
+    
+    public final static String COLOR_NULL = "Er werd null meegegeven als kleur";
     
     
     

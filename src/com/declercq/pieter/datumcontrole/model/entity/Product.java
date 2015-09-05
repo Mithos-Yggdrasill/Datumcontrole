@@ -109,11 +109,14 @@ public class Product {
     }
 
     public void setName(String name) throws DomainException {
+        if(name == null){
+            throw new DomainException(ErrorMessages.NAME_NULL);
+        }
         name = name.replaceAll(System.getProperty("line.separator"), "");
         name = name.replaceAll("\r|\n", "");
         name = name.toLowerCase().trim();
         if (!name.matches("^[.,a-zA-Z0-9 ]+$")) {
-            throw new DomainException(ErrorMessages.PRODUCT_NAME_ALPHANUMERIC);
+            throw new DomainException(ErrorMessages.NAME_ALPHANUMERIC);
         }
         if (name.length() < MIN_AMOUNT_OF_CHARACTERS_NAME) {
             throw new DomainException(ErrorMessages.PRODUCT_NAME_MIN_LENGTH);

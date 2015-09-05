@@ -26,12 +26,7 @@ public class SQLiteProductRepository implements ProductRepository {
     String url;
 
     public SQLiteProductRepository(String url) throws DatabaseException {
-        try {
-            Class.forName("org.sqlite.JDBC");
-            this.url = url;
-        } catch (ClassNotFoundException e) {
-            throw new DatabaseException(ErrorMessages.DATABASE_DRIVER_NOT_LOADED, e);
-        }
+        this.url = url;
     }
 
     @Override

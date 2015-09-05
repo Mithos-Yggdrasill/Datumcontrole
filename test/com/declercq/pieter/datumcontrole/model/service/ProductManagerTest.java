@@ -55,7 +55,7 @@ public class ProductManagerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void addProduct_DatabaseException_When_Product_is_null() throws ServiceException {
+    public void addProduct_IllegalArgumentException_When_Product_is_null() throws ServiceException {
         roomijs = null;
         service.addProduct(roomijs);
     }
@@ -75,7 +75,7 @@ public class ProductManagerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getProductByEan_DatabaseException_When_ean_is_null() throws ServiceException {
+    public void getProductByEan_IllegalArgumentException_When_ean_is_null() throws ServiceException {
         Long ean = null;
         service.getProductByEan(ean);
     }
@@ -116,7 +116,7 @@ public class ProductManagerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void updateProduct_DatabaseException_If_product_is_null() throws ServiceException {
+    public void updateProduct_IllegalArgumentException_If_product_is_null() throws ServiceException {
         service.addProduct(roomijs);
         productsToDeleteAfterTest.add(roomijs);
         int hope = 9876;
@@ -135,7 +135,7 @@ public class ProductManagerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void deleteProduct_DatabaseException_When_ean_is_null() throws ServiceException {
+    public void deleteProduct_IllegalArgumentException_When_ean_is_null() throws ServiceException {
         Long ean = null;
         service.deleteProduct(ean);
     }

@@ -2,6 +2,8 @@ package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.model.entity.Location;
 import com.declercq.pieter.datumcontrole.model.exception.db.DatabaseException;
+import com.declercq.pieter.datumcontrole.model.exception.db.LocationAlreadyExistsException;
+import com.declercq.pieter.datumcontrole.model.exception.db.LocationNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -51,13 +53,13 @@ public class SQLiteLocationRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void addLocation_DatabaseException_When_Location_is_null() throws DatabaseException {
+    public void addLocation_IllegalArgumentException_When_Location_is_null() throws DatabaseException {
         gang1 = null;
         db.addLocation(gang1);
     }
 
-    @Test(expected = DatabaseException.class)
-    public void addLocation_DatabaseException_When_already_Location_with_that_name() throws DatabaseException {
+    @Test(expected = LocationAlreadyExistsException.class)
+    public void addLocation_LocationAlreadyExistsException_When_already_Location_with_that_name() throws DatabaseException {
         db.addLocation(gang1);
         locationsToDeleteAfterTest.add(gang1);
         db.addLocation(gang1);
@@ -71,13 +73,13 @@ public class SQLiteLocationRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getLocation_DatabaseException_When_name_is_null() throws DatabaseException {
+    public void getLocation_IllegalArgumentException_When_name_is_null() throws DatabaseException {
         String name = null;
         db.getLocation(name);
     }
 
-    @Test(expected = DatabaseException.class)
-    public void getLocation_DatabaseException_When_no_location_with_that_name() throws DatabaseException {
+    @Test(expected = LocationNotFoundException.class)
+    public void getLocation_LocationNotFoundException_When_no_location_with_that_name() throws DatabaseException {
         db.getLocation(gang1.getName());
     }
 
@@ -94,7 +96,7 @@ public class SQLiteLocationRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void updateProduct_DatabaseException_If_product_is_null() throws DatabaseException {
+    public void updateProduct_IllegalArgumentException_If_product_is_null() throws DatabaseException {
         db.addLocation(gang1);
         locationsToDeleteAfterTest.add(gang1);
         db.updateLocation(null);
@@ -109,7 +111,7 @@ public class SQLiteLocationRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void deleteLocation_DatabaseException_When_name_is_null() throws DatabaseException {
+    public void deleteLocation_IllegalArgumentException_When_name_is_null() throws DatabaseException {
         String name = null;
         db.deleteLocation(name);
     }

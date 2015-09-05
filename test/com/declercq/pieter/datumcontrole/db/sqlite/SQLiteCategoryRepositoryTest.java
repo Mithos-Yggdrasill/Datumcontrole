@@ -1,6 +1,8 @@
 package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.model.entity.Category;
+import com.declercq.pieter.datumcontrole.model.exception.db.CategoryAlreadyExistsException;
+import com.declercq.pieter.datumcontrole.model.exception.db.CategoryNotFoundException;
 import com.declercq.pieter.datumcontrole.model.exception.db.DatabaseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +53,13 @@ public class SQLiteCategoryRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void addCategory_DatabaseException_When_Category_is_null() throws DatabaseException {
+    public void addCategory_IllegalArgumentException_When_Category_is_null() throws DatabaseException {
         voeding = null;
         db.addCategory(voeding);
     }
 
-    @Test(expected = DatabaseException.class)
-    public void addProduct_DatabaseException_When_already_Category_with_that_name() throws DatabaseException {
+    @Test(expected = CategoryAlreadyExistsException.class)
+    public void addProduct_CategoryAlreadyExistsException_When_already_Category_with_that_name() throws DatabaseException {
         db.addCategory(voeding);
         categoriesToDeleteAfterTest.add(voeding);
         db.addCategory(voeding);
@@ -71,13 +73,13 @@ public class SQLiteCategoryRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getCategory_DatabaseException_When_name_is_null() throws DatabaseException {
+    public void getCategory_IllegalArgumentException_When_name_is_null() throws DatabaseException {
         String name = null;
         db.getCategory(name);
     }
 
-    @Test(expected = DatabaseException.class)
-    public void getCategory_DatabaseException_When_no_category_with_that_name() throws DatabaseException {
+    @Test(expected = CategoryNotFoundException.class)
+    public void getCategory_CategoryNotFoundException_When_no_category_with_that_name() throws DatabaseException {
         db.getCategory(voeding.getName());
     }
 
@@ -100,7 +102,7 @@ public class SQLiteCategoryRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void updateProduct_DatabaseException_If_product_is_null() throws DatabaseException {
+    public void updateProduct_IllegalArgumentException_If_product_is_null() throws DatabaseException {
         db.addCategory(voeding);
         categoriesToDeleteAfterTest.add(voeding);
         int sublocations = 15;
@@ -119,7 +121,7 @@ public class SQLiteCategoryRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void deleteCategory_DatabaseException_When_name_is_null() throws DatabaseException {
+    public void deleteCategory_IllegalArgumentException_When_name_is_null() throws DatabaseException {
         String name = null;
         db.deleteCategory(name);
     }

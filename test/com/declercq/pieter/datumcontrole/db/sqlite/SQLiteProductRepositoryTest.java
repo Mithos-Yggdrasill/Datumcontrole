@@ -2,6 +2,8 @@ package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.model.entity.Product;
 import com.declercq.pieter.datumcontrole.model.exception.db.DatabaseException;
+import com.declercq.pieter.datumcontrole.model.exception.db.ProductAlreadyExistsException;
+import com.declercq.pieter.datumcontrole.model.exception.db.ProductNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -51,13 +53,13 @@ public class SQLiteProductRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void addProduct_DatabaseException_When_Product_is_null() throws DatabaseException {
+    public void addProduct_IllegalArgumentException_When_Product_is_null() throws DatabaseException {
         roomijs = null;
         db.addProduct(roomijs);
     }
 
-    @Test(expected = DatabaseException.class)
-    public void addProduct_DatabaseException_When_already_Product_with_that_ean() throws DatabaseException {
+    @Test(expected = ProductAlreadyExistsException.class)
+    public void addProduct_ProductAlreadyExistsException_When_already_Product_with_that_ean() throws DatabaseException {
         db.addProduct(roomijs);
         productsToDeleteAfterTest.add(roomijs);
         db.addProduct(roomijs);
@@ -71,13 +73,13 @@ public class SQLiteProductRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getProductByEan_DatabaseException_When_ean_is_null() throws DatabaseException {
+    public void getProductByEan_IllegalArgumentException_When_ean_is_null() throws DatabaseException {
         Long ean = null;
         db.getProductByEan(ean);
     }
 
-    @Test(expected = DatabaseException.class)
-    public void getProductByEan_DatabaseException_When_no_product_with_that_ean() throws DatabaseException {
+    @Test(expected = ProductNotFoundException.class)
+    public void getProductByEan_ProductNotFoundException_When_no_product_with_that_ean() throws DatabaseException {
         db.getProductByEan(roomijs.getEan());
     }
 
@@ -112,7 +114,7 @@ public class SQLiteProductRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void updateProduct_DatabaseException_If_product_is_null() throws DatabaseException {
+    public void updateProduct_IllegalArgumentException_If_product_is_null() throws DatabaseException {
         db.addProduct(roomijs);
         productsToDeleteAfterTest.add(roomijs);
         int hope = 9876;
@@ -131,7 +133,7 @@ public class SQLiteProductRepositoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void deleteProduct_DatabaseException_When_ean_is_null() throws DatabaseException {
+    public void deleteProduct_IllegalArgumentException_When_ean_is_null() throws DatabaseException {
         Long ean = null;
         db.deleteProduct(ean);
     }

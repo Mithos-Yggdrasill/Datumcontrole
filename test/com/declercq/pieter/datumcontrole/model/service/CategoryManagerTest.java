@@ -52,7 +52,7 @@ public class CategoryManagerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void addCategory_ServiceException_When_Category_is_null() throws ServiceException {
+    public void addCategory_IllegalArgumentException_When_Category_is_null() throws ServiceException {
         voeding = null;
         service.addCategory(voeding);
     }
@@ -72,7 +72,7 @@ public class CategoryManagerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void getCategory_ServiceException_When_name_is_null() throws ServiceException {
+    public void getCategory_IllegalArgumentException_When_name_is_null() throws ServiceException {
         String name = null;
         service.getCategory(name);
     }
@@ -101,7 +101,7 @@ public class CategoryManagerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void updateProduct_ServiceException_If_product_is_null() throws ServiceException {
+    public void updateProduct_IllegalArgumentException_If_product_is_null() throws ServiceException {
         service.addCategory(voeding);
         categoriesToDeleteAfterTest.add(voeding);
         int sublocations = 15;
@@ -120,7 +120,7 @@ public class CategoryManagerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void deleteCategory_ServiceException_When_name_is_null() throws ServiceException {
+    public void deleteCategory_IllegalArgumentException_When_name_is_null() throws ServiceException {
         String name = null;
         service.deleteCategory(name);
     }

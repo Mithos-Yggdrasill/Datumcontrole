@@ -62,32 +62,32 @@ public class CategoryTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void setName_IllegalArgumentException_If_param_If_param_has_less_than_MIN_characters() {
-        String newName = new String(new char[Category.MIN_AMOUNT_OF_CHARACTERS_NAME - 1]).replace("\0", "a");
+        String newName = new String(new char[Category.NAME_MIN_LENGTH - 1]).replace("\0", "a");
         voeding.setName(newName);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setName_IllegalArgumentException_If_param_If_param_has_more_than_MAX_characters() {
-        String newName = new String(new char[Category.MAX_AMOUNT_OF_CHARACTERS_NAME + 1]).replace("\0", "a");
+        String newName = new String(new char[Category.NAME_MAX_LENGTH + 1]).replace("\0", "a");
         voeding.setName(newName);
     }
 
     @Test
     public void setSublocations_Param_is_new_Sublocations() {
-        int sublocations = Category.MIN_AMOUNT_OF_SUBLOCATIONS;
+        int sublocations = Category.SUBLOCATIONS_MIN_AMOUNT;
         voeding.setSublocations(sublocations);
         assertEquals(sublocations, voeding.getSublocations());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setSublocations_IllegalArgumentException_If_param_has_less_than_MIN_digits() {
-        int sublocations = Category.MIN_AMOUNT_OF_SUBLOCATIONS - 1;
+        int sublocations = Category.SUBLOCATIONS_MIN_AMOUNT - 1;
         voeding.setSublocations(sublocations);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setSublocations_IllegalArgumentException_If_param_has_more_than_MAX_digits() {
-        int sublocations = Category.MAX_AMOUNT_OF_SUBLOCATIONS + 1;
+        int sublocations = Category.SUBLOCATIONS_MAX_AMOUNT + 1;
         voeding.setSublocations(sublocations);
     }
 

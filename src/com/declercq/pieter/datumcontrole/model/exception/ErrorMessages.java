@@ -13,12 +13,12 @@ public interface ErrorMessages {
     /**
      * The error-message-code referring to a non valid length of the barcode.
      */
-    public final static String PRODUCT_EAN_MIN_LENGTH = "De barcode moet minstens " + Product.MIN_AMOUNT_OF_DIGITS_EAN + " cijfers bevatten";
+    public final static String PRODUCT_EAN_MIN_LENGTH = "De barcode moet minstens " + Product.EAN_MIN_LENGTH + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non valid length of the barcode.
      */
-    public final static String PRODUCT_EAN_MAX_LENGTH = "De barcode mag maximaal " + Product.MAX_AMOUNT_OF_DIGITS_EAN + " cijfers bevatten";
+    public final static String PRODUCT_EAN_MAX_LENGTH = "De barcode mag maximaal " + Product.EAN_MAX_LENGTH + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non positive value of the barcode.
@@ -29,12 +29,12 @@ public interface ErrorMessages {
      * The error-message-code referring to a hope number with less digits than
      * allowed.
      */
-    public final static String PRODUCT_HOPE_MIN_LENGTH = "De hope moet minstens " + Product.MIN_AMOUNT_OF_DIGITS_HOPE + " cijfers bevatten";
+    public final static String PRODUCT_HOPE_MIN_LENGTH = "De hope moet minstens " + Product.HOPE_MIN_LENGTH + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non valid hope number.
      */
-    public final static String PRODUCT_HOPE_MAX_LENGTH = "De hope mag maximaal " + Product.MAX_AMOUNT_OF_DIGITS_HOPE + " cijfers bevatten";
+    public final static String PRODUCT_HOPE_MAX_LENGTH = "De hope mag maximaal " + Product.HOPE_MAX_LENGTH + " cijfers bevatten";
 
     /**
      * The error-message-code referring to a non valid hope number.
@@ -53,13 +53,13 @@ public interface ErrorMessages {
      * The error-message-code referring to a name with less characters than
      * allowed.
      */
-    public final static String PRODUCT_NAME_MIN_LENGTH = "De naam moet minstens " + Product.MIN_AMOUNT_OF_CHARACTERS_NAME + " letters bevatten";
+    public final static String PRODUCT_NAME_MIN_LENGTH = "De naam moet minstens " + Product.NAME_MIN_LENGTH + " letters bevatten";
 
     /**
      * The error-message-code referring to a name with less characters than
      * allowed.
      */
-    public final static String PRODUCT_NAME_MAX_LENGTH = "De naam mag maximaal uit " + Product.MAX_AMOUNT_OF_CHARACTERS_NAME + " letters bestaan";
+    public final static String PRODUCT_NAME_MAX_LENGTH = "De naam mag maximaal uit " + Product.NAME_MAX_LENGTH + " letters bestaan";
 
     /**
      * The error-message-code referring to a name with less characters than
@@ -96,13 +96,13 @@ public interface ErrorMessages {
      * The error-message-code referring to a name with less characters than
      * allowed.
      */
-    public final static String CATEGORY_NAME_MIN_LENGTH = "De naam moet minstens " + Category.MIN_AMOUNT_OF_CHARACTERS_NAME + " letters bevatten";
+    public final static String CATEGORY_NAME_MIN_LENGTH = "De naam moet minstens " + Category.NAME_MIN_LENGTH + " letters bevatten";
 
     /**
      * The error-message-code referring to a name with less characters than
      * allowed.
      */
-    public final static String CATEGORY_NAME_MAX_LENGTH = "De naam mag maximaal uit " + Category.MAX_AMOUNT_OF_CHARACTERS_NAME + " letters bestaan";
+    public final static String CATEGORY_NAME_MAX_LENGTH = "De naam mag maximaal uit " + Category.NAME_MAX_LENGTH + " letters bestaan";
 
     public final static String COLOR_NOT_HEXADECIMAL = "De kleur moet in hexadecimaal formaat gegeven zijn.";
 

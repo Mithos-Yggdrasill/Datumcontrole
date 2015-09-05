@@ -10,15 +10,9 @@ import java.util.Objects;
  */
 public class Location {
 
-    /**
-     * The minimum amount of characters the name of a location must have.
-     */
-    public static final int MIN_AMOUNT_OF_CHARACTERS_NAME = 2;
+    public static final int NAME_MIN_LENGTH = 2;
 
-    /**
-     * The maximum amount of characters the name of a location may have.
-     */
-    public static final int MAX_AMOUNT_OF_CHARACTERS_NAME = 20;
+    public static final int NAME_MAX_LENGTH = 20;
 
     private String name;
 
@@ -44,10 +38,10 @@ public class Location {
         if (!name.matches("^[.,a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException(ErrorMessages.NAME_NOT_ALPHANUMERIC);
         }
-        if (name.length() < MIN_AMOUNT_OF_CHARACTERS_NAME) {
+        if (name.length() < NAME_MIN_LENGTH) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_NAME_MIN_LENGTH);
         }
-        if (name.length() > MAX_AMOUNT_OF_CHARACTERS_NAME) {
+        if (name.length() > NAME_MAX_LENGTH) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_NAME_MAX_LENGTH);
         }
         this.name = name;
@@ -73,8 +67,8 @@ public class Location {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.name;
     }
-    
+
 }

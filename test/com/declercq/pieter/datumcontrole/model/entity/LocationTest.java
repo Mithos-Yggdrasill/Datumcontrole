@@ -63,13 +63,13 @@ public class LocationTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void setName_IllegalArgumentException_If_param_If_param_has_less_than_MIN_characters() {
-        String newName = new String(new char[Location.MIN_AMOUNT_OF_CHARACTERS_NAME - 1]).replace("\0", "a");
+        String newName = new String(new char[Location.NAME_MIN_LENGTH - 1]).replace("\0", "a");
         gang1.setName(newName);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setName_IllegalArgumentException_If_param_If_param_has_more_than_MAX_characters() {
-        String newName = new String(new char[Location.MAX_AMOUNT_OF_CHARACTERS_NAME + 1]).replace("\0", "a");
+        String newName = new String(new char[Location.NAME_MAX_LENGTH + 1]).replace("\0", "a");
         gang1.setName(newName);
     }
 

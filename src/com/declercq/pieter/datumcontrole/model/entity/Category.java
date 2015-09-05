@@ -12,26 +12,14 @@ import java.util.regex.Pattern;
  */
 public class Category {
 
-    /**
-     * The minimum amount of characters the name of a product must have.
-     */
-    public static final int MIN_AMOUNT_OF_CHARACTERS_NAME = 2;
+    public static final int NAME_MIN_LENGTH = 2;
 
-    /**
-     * The maximum amount of characters the name of a product may have.
-     */
-    public static final int MAX_AMOUNT_OF_CHARACTERS_NAME = 20;
+    public static final int NAME_MAX_LENGTH = 20;
 
-    /**
-     * The minimum amount of sublocations a category must have.
-     */
-    public static final int MIN_AMOUNT_OF_SUBLOCATIONS = 1;
+    public static final int SUBLOCATIONS_MIN_AMOUNT = 1;
 
-    /**
-     * The maximum amount of sublocations a category may have.
-     */
-    public static final int MAX_AMOUNT_OF_SUBLOCATIONS = 20;
-    
+    public static final int SUBLOCATIONS_MAX_AMOUNT = 20;
+
     private String name;
 
     private int sublocations;
@@ -52,7 +40,7 @@ public class Category {
     }
 
     public void setName(String name) {
-        if(name == null){
+        if (name == null) {
             throw new IllegalArgumentException(ErrorMessages.NAME_NULL);
         }
         name = name.replaceAll(System.getProperty("line.separator"), "");
@@ -61,10 +49,10 @@ public class Category {
         if (!name.matches("^[.,a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException(ErrorMessages.NAME_NOT_ALPHANUMERIC);
         }
-        if (name.length() < MIN_AMOUNT_OF_CHARACTERS_NAME) {
+        if (name.length() < NAME_MIN_LENGTH) {
             throw new IllegalArgumentException(ErrorMessages.CATEGORY_NAME_MIN_LENGTH);
         }
-        if (name.length() > MAX_AMOUNT_OF_CHARACTERS_NAME) {
+        if (name.length() > NAME_MAX_LENGTH) {
             throw new IllegalArgumentException(ErrorMessages.CATEGORY_NAME_MAX_LENGTH);
         }
         this.name = name;
@@ -75,10 +63,10 @@ public class Category {
     }
 
     public void setSublocations(int sublocations) {
-        if (sublocations < MIN_AMOUNT_OF_SUBLOCATIONS) {
+        if (sublocations < SUBLOCATIONS_MIN_AMOUNT) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_HOPE_MIN_LENGTH);
         }
-        if (sublocations > MAX_AMOUNT_OF_SUBLOCATIONS) {
+        if (sublocations > SUBLOCATIONS_MAX_AMOUNT) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_HOPE_MAX_LENGTH);
         }
         this.sublocations = sublocations;
@@ -129,9 +117,9 @@ public class Category {
         }
         return true;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.name;
     }
 

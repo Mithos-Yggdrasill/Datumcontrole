@@ -12,35 +12,17 @@ import java.util.Objects;
  */
 public class Product {
 
-    /**
-     * The minimum amount of digits the ean of a product must have.
-     */
-    public static final int MIN_AMOUNT_OF_DIGITS_EAN = 8;
+    public static final int EAN_MIN_LENGTH = 8;
 
-    /**
-     * The maximum amount of digits the ean of a product must have.
-     */
-    public static final int MAX_AMOUNT_OF_DIGITS_EAN = 13;
+    public static final int EAN_MAX_LENGTH = 13;
 
-    /**
-     * The minimum amount of digits the hope of a product must have.
-     */
-    public static final int MIN_AMOUNT_OF_DIGITS_HOPE = 4;
+    public static final int HOPE_MIN_LENGTH = 4;
 
-    /**
-     * The maximum amount of digits the hope of a product must have.
-     */
-    public static final int MAX_AMOUNT_OF_DIGITS_HOPE = 8;
+    public static final int HOPE_MAX_LENGTH = 8;
 
-    /**
-     * The minimum amount of characters the name of a product must have.
-     */
-    public static final int MIN_AMOUNT_OF_CHARACTERS_NAME = 2;
+    public static final int NAME_MIN_LENGTH = 2;
 
-    /**
-     * The maximum amount of characters the name of a product may have.
-     */
-    public static final int MAX_AMOUNT_OF_CHARACTERS_NAME = 30;
+    public static final int NAME_MAX_LENGTH = 30;
 
     /**
      * The EAN of the product.
@@ -77,10 +59,10 @@ public class Product {
         if (ean < 0) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_EAN_NEGATIVE);
         }
-        if (String.valueOf(ean).length() < MIN_AMOUNT_OF_DIGITS_EAN) {
+        if (String.valueOf(ean).length() < EAN_MIN_LENGTH) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_EAN_MIN_LENGTH);
         }
-        if (String.valueOf(ean).length() > MAX_AMOUNT_OF_DIGITS_EAN) {
+        if (String.valueOf(ean).length() > EAN_MAX_LENGTH) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_EAN_MAX_LENGTH);
         }
         this.ean = ean;
@@ -94,10 +76,10 @@ public class Product {
         if (hope < 0) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_HOPE_NEGATIVE);
         }
-        if (String.valueOf(hope).length() < MIN_AMOUNT_OF_DIGITS_HOPE) {
+        if (String.valueOf(hope).length() < HOPE_MIN_LENGTH) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_HOPE_MIN_LENGTH);
         }
-        if (String.valueOf(hope).length() > MAX_AMOUNT_OF_DIGITS_HOPE) {
+        if (String.valueOf(hope).length() > HOPE_MAX_LENGTH) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_HOPE_MAX_LENGTH);
         }
         this.hope = hope;
@@ -117,10 +99,10 @@ public class Product {
         if (!name.matches("^[.,a-zA-Z0-9 ]+$")) {
             throw new IllegalArgumentException(ErrorMessages.NAME_NOT_ALPHANUMERIC);
         }
-        if (name.length() < MIN_AMOUNT_OF_CHARACTERS_NAME) {
+        if (name.length() < NAME_MIN_LENGTH) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_NAME_MIN_LENGTH);
         }
-        if (name.length() > MAX_AMOUNT_OF_CHARACTERS_NAME) {
+        if (name.length() > NAME_MAX_LENGTH) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_NAME_MAX_LENGTH);
         }
         this.name = name;

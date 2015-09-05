@@ -47,7 +47,7 @@ public class ProductTest {
 
     @Test
     public void setEan_Param_is_new_ean() {
-        Long newEan = pow(10L, Product.MIN_AMOUNT_OF_DIGITS_EAN - 1);
+        Long newEan = pow(10L, Product.EAN_MIN_LENGTH - 1);
         chips.setEan(newEan);
         assertEquals(newEan, chips.getEan());
     }
@@ -60,44 +60,44 @@ public class ProductTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void setEan_IllegalArgumentException_If_param_has_less_than_MIN_digits() {
-        Long newEan = pow(10L, Product.MIN_AMOUNT_OF_DIGITS_EAN - 2);
+        Long newEan = pow(10L, Product.EAN_MIN_LENGTH - 2);
         chips.setEan(newEan);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setEan_IllegalArgumentException_If_param_has_more_than_MAX_digits() {
-        Long newEan = pow(10L, Product.MAX_AMOUNT_OF_DIGITS_EAN);
+        Long newEan = pow(10L, Product.EAN_MAX_LENGTH);
         chips.setEan(newEan);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setEan_IllegalArgumentException_If_param_is_negative() {
-        Long newEan = pow(-10L, Product.MIN_AMOUNT_OF_DIGITS_EAN - 1);
+        Long newEan = pow(-10L, Product.EAN_MIN_LENGTH - 1);
         chips.setEan(newEan);
     }
 
     @Test
     public void setHope_Param_is_new_hope() {
-        int newHope = (int) Math.pow(10, Product.MIN_AMOUNT_OF_DIGITS_HOPE - 1);
+        int newHope = (int) Math.pow(10, Product.HOPE_MIN_LENGTH - 1);
         chips.setHope(newHope);
         assertEquals(newHope, chips.getHope());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setHope_IllegalArgumentException_If_param_has_less_than_MIN_digits() {
-        int newHope = (int) Math.pow(10, Product.MIN_AMOUNT_OF_DIGITS_HOPE - 2);
+        int newHope = (int) Math.pow(10, Product.HOPE_MIN_LENGTH - 2);
         chips.setHope(newHope);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setHope_IllegalArgumentException_If_param_has_more_than_MAX_digits() {
-        int newHope = (int) Math.pow(10, Product.MAX_AMOUNT_OF_DIGITS_HOPE);
+        int newHope = (int) Math.pow(10, Product.HOPE_MAX_LENGTH);
         chips.setHope(newHope);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setHope_IllegalArgumentException_If_param_is_negative() {
-        int newHope = (int) Math.pow(-10, Product.MIN_AMOUNT_OF_DIGITS_HOPE - 1);
+        int newHope = (int) Math.pow(-10, Product.HOPE_MIN_LENGTH - 1);
         chips.setHope(newHope);
     }
 
@@ -136,13 +136,13 @@ public class ProductTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void setName_IllegalArgumentException_If_param_If_param_has_less_than_MIN_characters() {
-        String newName = new String(new char[Product.MIN_AMOUNT_OF_CHARACTERS_NAME - 1]).replace("\0", "a");
+        String newName = new String(new char[Product.NAME_MIN_LENGTH - 1]).replace("\0", "a");
         chips.setName(newName);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setName_IllegalArgumentException_If_param_If_param_has_more_than_MAX_characters() {
-        String newName = new String(new char[Product.MAX_AMOUNT_OF_CHARACTERS_NAME + 1]).replace("\0", "a");
+        String newName = new String(new char[Product.NAME_MAX_LENGTH + 1]).replace("\0", "a");
         chips.setName(newName);
     }
 

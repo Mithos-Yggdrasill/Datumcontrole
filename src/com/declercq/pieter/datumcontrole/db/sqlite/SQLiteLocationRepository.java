@@ -70,6 +70,9 @@ public class SQLiteLocationRepository implements LocationRepository {
 
     @Override
     public Location getLocation(String name) throws DatabaseException {
+        if (name == null) {
+            throw new IllegalArgumentException(ErrorMessages.NAME_NULL);
+        }
         String query = "SELECT * FROM location WHERE name = ?";
         Location location = null;
         initiateStatement(query);

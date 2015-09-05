@@ -54,7 +54,7 @@ public class ProductManagerTest {
         assertEquals(size + 1, service.getNumberOfProducts());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void addProduct_DatabaseException_When_Product_is_null() throws ServiceException {
         roomijs = null;
         service.addProduct(roomijs);
@@ -74,7 +74,7 @@ public class ProductManagerTest {
         assertEquals(roomijs, service.getProductByEan(roomijs.getEan()));
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getProductByEan_DatabaseException_When_ean_is_null() throws ServiceException {
         Long ean = null;
         service.getProductByEan(ean);
@@ -115,7 +115,7 @@ public class ProductManagerTest {
         assertEquals(name, service.getProductByEan(roomijs.getEan()).getName());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void updateProduct_DatabaseException_If_product_is_null() throws ServiceException {
         service.addProduct(roomijs);
         productsToDeleteAfterTest.add(roomijs);
@@ -134,7 +134,7 @@ public class ProductManagerTest {
         assertEquals(size - 1, service.getNumberOfProducts());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deleteProduct_DatabaseException_When_ean_is_null() throws ServiceException {
         Long ean = null;
         service.deleteProduct(ean);

@@ -1,8 +1,7 @@
 package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.model.entity.Location;
-import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
-import com.declercq.pieter.datumcontrole.model.exception.DomainException;
+import com.declercq.pieter.datumcontrole.model.exception.db.DatabaseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -26,7 +25,7 @@ public class SQLiteLocationRepositoryTest {
     }
 
     @Before
-    public void setUp() throws DatabaseException, DomainException {
+    public void setUp() throws DatabaseException {
         db = new SQLiteLocationRepository("jdbc:sqlite:‪DatumControle.sqlite");
         size = db.size();
         locationsToDeleteAfterTest = new ArrayList<>();
@@ -51,7 +50,7 @@ public class SQLiteLocationRepositoryTest {
         assertEquals(size + 1, db.size());
     }
 
-    @Test(expected = DatabaseException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void addLocation_DatabaseException_When_Location_is_null() throws DatabaseException {
         gang1 = null;
         db.addLocation(gang1);
@@ -71,7 +70,7 @@ public class SQLiteLocationRepositoryTest {
         assertEquals(gang1, db.getLocation(gang1.getName()));
     }
 
-    @Test(expected = DatabaseException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getLocation_DatabaseException_When_name_is_null() throws DatabaseException {
         String name = null;
         db.getLocation(name);
@@ -88,14 +87,14 @@ public class SQLiteLocationRepositoryTest {
     }
 
     @Test
-    public void updateLocation_Update_info_of_the_Location() throws DatabaseException, DomainException {
+    public void updateLocation_Update_info_of_the_Location() throws DatabaseException {
         db.addLocation(gang1);
         locationsToDeleteAfterTest.add(gang1);
         db.updateLocation(gang1);
     }
 
-    @Test(expected = DatabaseException.class)
-    public void updateProduct_DatabaseException_If_product_is_null() throws DatabaseException, DomainException {
+    @Test(expected = IllegalArgumentException.class)
+    public void updateProduct_DatabaseException_If_product_is_null() throws DatabaseException {
         db.addLocation(gang1);
         locationsToDeleteAfterTest.add(gang1);
         db.updateLocation(null);
@@ -109,7 +108,7 @@ public class SQLiteLocationRepositoryTest {
         assertEquals(size - 1, db.size());
     }
 
-    @Test(expected = DatabaseException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deleteLocation_DatabaseException_When_name_is_null() throws DatabaseException {
         String name = null;
         db.deleteLocation(name);

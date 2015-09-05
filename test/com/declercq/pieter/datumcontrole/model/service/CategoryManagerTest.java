@@ -51,7 +51,7 @@ public class CategoryManagerTest {
         assertEquals(size + 1, service.getNumberOfCategories());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void addCategory_ServiceException_When_Category_is_null() throws ServiceException {
         voeding = null;
         service.addCategory(voeding);
@@ -71,7 +71,7 @@ public class CategoryManagerTest {
         assertEquals(voeding, service.getCategory(voeding.getName()));
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getCategory_ServiceException_When_name_is_null() throws ServiceException {
         String name = null;
         service.getCategory(name);
@@ -100,7 +100,7 @@ public class CategoryManagerTest {
         assertEquals(color, service.getCategory(voeding.getName()).getColor());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void updateProduct_ServiceException_If_product_is_null() throws ServiceException {
         service.addCategory(voeding);
         categoriesToDeleteAfterTest.add(voeding);
@@ -119,7 +119,7 @@ public class CategoryManagerTest {
         assertEquals(size - 1, service.getNumberOfCategories());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deleteCategory_ServiceException_When_name_is_null() throws ServiceException {
         String name = null;
         service.deleteCategory(name);

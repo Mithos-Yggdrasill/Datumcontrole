@@ -1,8 +1,7 @@
 package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.model.entity.Category;
-import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
-import com.declercq.pieter.datumcontrole.model.exception.DomainException;
+import com.declercq.pieter.datumcontrole.model.exception.db.DatabaseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -26,7 +25,7 @@ public class SQLiteCategoryRepositoryTest {
     }
 
     @Before
-    public void setUp() throws DatabaseException, DomainException {
+    public void setUp() throws DatabaseException {
         db = new SQLiteCategoryRepository("jdbc:sqlite:‪DatumControle.sqlite");
         size = db.size();
         categoriesToDeleteAfterTest = new ArrayList<>();
@@ -51,7 +50,7 @@ public class SQLiteCategoryRepositoryTest {
         assertEquals(size + 1, db.size());
     }
 
-    @Test(expected = DatabaseException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void addCategory_DatabaseException_When_Category_is_null() throws DatabaseException {
         voeding = null;
         db.addCategory(voeding);
@@ -71,7 +70,7 @@ public class SQLiteCategoryRepositoryTest {
         assertEquals(voeding, db.getCategory(voeding.getName()));
     }
 
-    @Test(expected = DatabaseException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getCategory_DatabaseException_When_name_is_null() throws DatabaseException {
         String name = null;
         db.getCategory(name);
@@ -88,7 +87,7 @@ public class SQLiteCategoryRepositoryTest {
     }
 
     @Test
-    public void updateCategory_Update_info_of_the_category() throws DatabaseException, DomainException {
+    public void updateCategory_Update_info_of_the_category() throws DatabaseException {
         db.addCategory(voeding);
         categoriesToDeleteAfterTest.add(voeding);
         int sublocations = 15;
@@ -100,8 +99,8 @@ public class SQLiteCategoryRepositoryTest {
         assertEquals(color, db.getCategory(voeding.getName()).getColor());
     }
 
-    @Test(expected = DatabaseException.class)
-    public void updateProduct_DatabaseException_If_product_is_null() throws DatabaseException, DomainException {
+    @Test(expected = IllegalArgumentException.class)
+    public void updateProduct_DatabaseException_If_product_is_null() throws DatabaseException {
         db.addCategory(voeding);
         categoriesToDeleteAfterTest.add(voeding);
         int sublocations = 15;
@@ -119,7 +118,7 @@ public class SQLiteCategoryRepositoryTest {
         assertEquals(size - 1, db.size());
     }
 
-    @Test(expected = DatabaseException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deleteCategory_DatabaseException_When_name_is_null() throws DatabaseException {
         String name = null;
         db.deleteCategory(name);

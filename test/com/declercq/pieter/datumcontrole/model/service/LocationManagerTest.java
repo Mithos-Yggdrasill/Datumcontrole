@@ -51,7 +51,7 @@ public class LocationManagerTest {
         assertEquals(size + 1, service.getNumberOfLocations());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void addLocation_ServiceException_When_Location_is_null() throws ServiceException {
         gang1 = null;
         service.addLocation(gang1);
@@ -71,7 +71,7 @@ public class LocationManagerTest {
         assertEquals(gang1, service.getLocation(gang1.getName()));
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getLocation_ServiceException_When_name_is_null() throws ServiceException {
         String name = null;
         service.getLocation(name);
@@ -94,7 +94,7 @@ public class LocationManagerTest {
         service.updateLocation(gang1);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void updateProduct_ServiceException_If_product_is_null() throws ServiceException {
         service.addLocation(gang1);
         locationsToDeleteAfterTest.add(gang1);
@@ -109,7 +109,7 @@ public class LocationManagerTest {
         assertEquals(size - 1, service.getNumberOfLocations());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void deleteLocation_ServiceException_When_name_is_null() throws ServiceException {
         String name = null;
         service.deleteLocation(name);

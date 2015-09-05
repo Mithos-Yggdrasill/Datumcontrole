@@ -45,7 +45,7 @@ public interface ErrorMessages {
      * The error-message-code referring to a name consisting of non-valid
      * characters.
      */
-    public final static String NAME_ALPHANUMERIC = "De naam mag enkel uit een combinatie van letters and cijfers bestaan.";
+    public final static String NAME_NOT_ALPHANUMERIC = "De naam mag enkel uit een combinatie van letters and cijfers bestaan.";
 
     public final static String NAME_NULL = "Er werd null meegegeven als naam";
 
@@ -104,7 +104,7 @@ public interface ErrorMessages {
      */
     public final static String CATEGORY_NAME_MAX_LENGTH = "De naam mag maximaal uit " + Category.MAX_AMOUNT_OF_CHARACTERS_NAME + " letters bestaan";
 
-    public final static String COLOR_HEXADECIMAL = "De kleur moet in hexadecimaal formaat gegeven zijn.";
+    public final static String COLOR_NOT_HEXADECIMAL = "De kleur moet in hexadecimaal formaat gegeven zijn.";
 
     public final static String COLOR_NULL = "Er werd null meegegeven als kleur";
 

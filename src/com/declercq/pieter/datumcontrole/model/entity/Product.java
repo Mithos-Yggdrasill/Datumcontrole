@@ -1,6 +1,5 @@
 package com.declercq.pieter.datumcontrole.model.entity;
 
-import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
 import java.util.Objects;
 
@@ -61,7 +60,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long ean, int hope, String name) throws DomainException {
+    public Product(Long ean, int hope, String name) {
         setEan(ean);
         setHope(hope);
         setName(name);
@@ -71,18 +70,18 @@ public class Product {
         return ean;
     }
 
-    public void setEan(Long ean) throws DomainException {
+    public void setEan(Long ean) {
         if (ean == null) {
-            throw new DomainException(ErrorMessages.PRODUCT_EAN_NULL);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_EAN_NULL);
         }
         if (ean < 0) {
-            throw new DomainException(ErrorMessages.PRODUCT_EAN_NEGATIVE);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_EAN_NEGATIVE);
         }
         if (String.valueOf(ean).length() < MIN_AMOUNT_OF_DIGITS_EAN) {
-            throw new DomainException(ErrorMessages.PRODUCT_EAN_MIN_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_EAN_MIN_LENGTH);
         }
         if (String.valueOf(ean).length() > MAX_AMOUNT_OF_DIGITS_EAN) {
-            throw new DomainException(ErrorMessages.PRODUCT_EAN_MAX_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_EAN_MAX_LENGTH);
         }
         this.ean = ean;
     }
@@ -91,15 +90,15 @@ public class Product {
         return hope;
     }
 
-    public void setHope(int hope) throws DomainException {
+    public void setHope(int hope) {
         if (hope < 0) {
-            throw new DomainException(ErrorMessages.PRODUCT_HOPE_NEGATIVE);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_HOPE_NEGATIVE);
         }
         if (String.valueOf(hope).length() < MIN_AMOUNT_OF_DIGITS_HOPE) {
-            throw new DomainException(ErrorMessages.PRODUCT_HOPE_MIN_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_HOPE_MIN_LENGTH);
         }
         if (String.valueOf(hope).length() > MAX_AMOUNT_OF_DIGITS_HOPE) {
-            throw new DomainException(ErrorMessages.PRODUCT_HOPE_MAX_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_HOPE_MAX_LENGTH);
         }
         this.hope = hope;
     }
@@ -108,21 +107,21 @@ public class Product {
         return name;
     }
 
-    public void setName(String name) throws DomainException {
+    public void setName(String name) {
         if (name == null) {
-            throw new DomainException(ErrorMessages.NAME_NULL);
+            throw new IllegalArgumentException(ErrorMessages.NAME_NULL);
         }
         name = name.replaceAll(System.getProperty("line.separator"), "");
         name = name.replaceAll("\r|\n", "");
         name = name.toLowerCase().trim();
         if (!name.matches("^[.,a-zA-Z0-9 ]+$")) {
-            throw new DomainException(ErrorMessages.NAME_ALPHANUMERIC);
+            throw new IllegalArgumentException(ErrorMessages.NAME_NOT_ALPHANUMERIC);
         }
         if (name.length() < MIN_AMOUNT_OF_CHARACTERS_NAME) {
-            throw new DomainException(ErrorMessages.PRODUCT_NAME_MIN_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_NAME_MIN_LENGTH);
         }
         if (name.length() > MAX_AMOUNT_OF_CHARACTERS_NAME) {
-            throw new DomainException(ErrorMessages.PRODUCT_NAME_MAX_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_NAME_MAX_LENGTH);
         }
         this.name = name;
     }

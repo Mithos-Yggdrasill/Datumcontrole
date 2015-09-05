@@ -2,7 +2,6 @@ package com.declercq.pieter.datumcontrole.model.service;
 
 import com.declercq.pieter.datumcontrole.db.sqlite.SQLiteLocationRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Location;
-import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ServiceException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +16,15 @@ import static org.junit.Assert.*;
  * @version 3.0
  */
 public class LocationManagerTest {
-    
+
     private LocationManager service;
     private int size;
     private List<Location> locationsToDeleteAfterTest;
     private Location gang1;
-    
+
     public LocationManagerTest() {
     }
-    
+
     @Before
     public void setUp() throws Exception {
         service = new LocationManager(new SQLiteLocationRepository("jdbc:sqlite:‪DatumControle.sqlite"));
@@ -33,7 +32,7 @@ public class LocationManagerTest {
         locationsToDeleteAfterTest = new ArrayList<>();
         gang1 = new Location("gang 1");
     }
-    
+
     @After
     public void tearDown() throws Exception {
         for (Location l : locationsToDeleteAfterTest) {
@@ -89,14 +88,14 @@ public class LocationManagerTest {
     }
 
     @Test
-    public void updateLocation_Update_info_of_the_Location() throws ServiceException, DomainException {
+    public void updateLocation_Update_info_of_the_Location() throws ServiceException {
         service.addLocation(gang1);
         locationsToDeleteAfterTest.add(gang1);
         service.updateLocation(gang1);
     }
 
     @Test(expected = ServiceException.class)
-    public void updateProduct_ServiceException_If_product_is_null() throws ServiceException, DomainException {
+    public void updateProduct_ServiceException_If_product_is_null() throws ServiceException {
         service.addLocation(gang1);
         locationsToDeleteAfterTest.add(gang1);
         service.updateLocation(null);
@@ -115,5 +114,5 @@ public class LocationManagerTest {
         String name = null;
         service.deleteLocation(name);
     }
-    
+
 }

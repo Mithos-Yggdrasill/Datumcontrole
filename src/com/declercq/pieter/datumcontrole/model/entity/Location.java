@@ -1,6 +1,5 @@
 package com.declercq.pieter.datumcontrole.model.entity;
 
-import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
 import java.util.Objects;
 
@@ -27,7 +26,7 @@ public class Location {
 
     }
 
-    public Location(String name) throws DomainException {
+    public Location(String name) {
         setName(name);
     }
 
@@ -35,21 +34,21 @@ public class Location {
         return name;
     }
 
-    public void setName(String name) throws DomainException {
+    public void setName(String name) {
         if (name == null) {
-            throw new DomainException(ErrorMessages.NAME_NULL);
+            throw new IllegalArgumentException(ErrorMessages.NAME_NULL);
         }
         name = name.replaceAll(System.getProperty("line.separator"), "");
         name = name.replaceAll("\r|\n", "");
         name = name.toLowerCase().trim();
         if (!name.matches("^[.,a-zA-Z0-9 ]+$")) {
-            throw new DomainException(ErrorMessages.NAME_ALPHANUMERIC);
+            throw new IllegalArgumentException(ErrorMessages.NAME_NOT_ALPHANUMERIC);
         }
         if (name.length() < MIN_AMOUNT_OF_CHARACTERS_NAME) {
-            throw new DomainException(ErrorMessages.PRODUCT_NAME_MIN_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_NAME_MIN_LENGTH);
         }
         if (name.length() > MAX_AMOUNT_OF_CHARACTERS_NAME) {
-            throw new DomainException(ErrorMessages.PRODUCT_NAME_MAX_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_NAME_MAX_LENGTH);
         }
         this.name = name;
     }

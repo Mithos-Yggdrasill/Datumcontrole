@@ -1,6 +1,5 @@
 package com.declercq.pieter.datumcontrole.model.entity;
 
-import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -40,10 +39,9 @@ public class Category {
     private String color;
 
     public Category() {
-
     }
 
-    public Category(String name, int sublocations, String color) throws DomainException {
+    public Category(String name, int sublocations, String color) {
         setName(name);
         setSublocations(sublocations);
         setColor(color);
@@ -53,21 +51,21 @@ public class Category {
         return name;
     }
 
-    public void setName(String name) throws DomainException {
+    public void setName(String name) {
         if(name == null){
-            throw new DomainException(ErrorMessages.NAME_NULL);
+            throw new IllegalArgumentException(ErrorMessages.NAME_NULL);
         }
         name = name.replaceAll(System.getProperty("line.separator"), "");
         name = name.replaceAll("\r|\n", "");
         name = name.toLowerCase().trim();
         if (!name.matches("^[.,a-zA-Z0-9 ]+$")) {
-            throw new DomainException(ErrorMessages.NAME_ALPHANUMERIC);
+            throw new IllegalArgumentException(ErrorMessages.NAME_NOT_ALPHANUMERIC);
         }
         if (name.length() < MIN_AMOUNT_OF_CHARACTERS_NAME) {
-            throw new DomainException(ErrorMessages.CATEGORY_NAME_MIN_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.CATEGORY_NAME_MIN_LENGTH);
         }
         if (name.length() > MAX_AMOUNT_OF_CHARACTERS_NAME) {
-            throw new DomainException(ErrorMessages.CATEGORY_NAME_MAX_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.CATEGORY_NAME_MAX_LENGTH);
         }
         this.name = name;
     }
@@ -76,12 +74,12 @@ public class Category {
         return sublocations;
     }
 
-    public void setSublocations(int sublocations) throws DomainException {
+    public void setSublocations(int sublocations) {
         if (sublocations < MIN_AMOUNT_OF_SUBLOCATIONS) {
-            throw new DomainException(ErrorMessages.PRODUCT_HOPE_MIN_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_HOPE_MIN_LENGTH);
         }
         if (sublocations > MAX_AMOUNT_OF_SUBLOCATIONS) {
-            throw new DomainException(ErrorMessages.PRODUCT_HOPE_MAX_LENGTH);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_HOPE_MAX_LENGTH);
         }
         this.sublocations = sublocations;
     }
@@ -90,14 +88,14 @@ public class Category {
         return color;
     }
 
-    public void setColor(String color) throws DomainException {
+    public void setColor(String color) {
         if (color == null) {
-            throw new DomainException(ErrorMessages.COLOR_NULL);
+            throw new IllegalArgumentException(ErrorMessages.COLOR_NULL);
         }
         Pattern pattern = Pattern.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$");
         Matcher matcher = pattern.matcher(color);
         if (!matcher.matches()) {
-            throw new DomainException(ErrorMessages.COLOR_HEXADECIMAL);
+            throw new IllegalArgumentException(ErrorMessages.COLOR_NOT_HEXADECIMAL);
         }
         this.color = color;
     }

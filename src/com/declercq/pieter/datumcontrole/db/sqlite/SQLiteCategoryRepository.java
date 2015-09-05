@@ -3,7 +3,6 @@ package com.declercq.pieter.datumcontrole.db.sqlite;
 import com.declercq.pieter.datumcontrole.db.CategoryRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Category;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
-import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -87,8 +86,6 @@ public class SQLiteCategoryRepository implements CategoryRepository {
             }
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
-        } catch (DomainException ex) {
-            throw new DatabaseException(ex);
         } finally {
             closeConnection();
         }
@@ -114,8 +111,6 @@ public class SQLiteCategoryRepository implements CategoryRepository {
             }
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
-        } catch (DomainException ex) {
-            throw new DatabaseException(ex);
         } finally {
             closeConnection();
         }

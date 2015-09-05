@@ -2,16 +2,11 @@ package com.declercq.pieter.datumcontrole.model.service;
 
 import com.declercq.pieter.datumcontrole.db.sqlite.SQLiteCategoryRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Category;
-import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
-import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ServiceException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -93,7 +88,7 @@ public class CategoryManagerTest {
     }
 
     @Test
-    public void updateCategory_Update_info_of_the_category() throws ServiceException, DomainException {
+    public void updateCategory_Update_info_of_the_category() throws ServiceException {
         service.addCategory(voeding);
         categoriesToDeleteAfterTest.add(voeding);
         int sublocations = 15;
@@ -106,7 +101,7 @@ public class CategoryManagerTest {
     }
 
     @Test(expected = ServiceException.class)
-    public void updateProduct_ServiceException_If_product_is_null() throws ServiceException, DomainException {
+    public void updateProduct_ServiceException_If_product_is_null() throws ServiceException {
         service.addCategory(voeding);
         categoriesToDeleteAfterTest.add(voeding);
         int sublocations = 15;

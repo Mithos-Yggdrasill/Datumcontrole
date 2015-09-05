@@ -3,7 +3,6 @@ package com.declercq.pieter.datumcontrole.model.service;
 import com.declercq.pieter.datumcontrole.db.sqlite.SQLiteProductRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
-import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ServiceException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ public class ProductManagerTest {
     }
 
     @Before
-    public void setUp() throws ServiceException, DomainException, DatabaseException {
+    public void setUp() throws ServiceException, DatabaseException {
         service = new ProductManager(new SQLiteProductRepository("jdbc:sqlite:‪DatumControle.sqlite"));
         size = service.getNumberOfProducts();
         productsToDeleteAfterTest = new ArrayList<>();
@@ -104,7 +103,7 @@ public class ProductManagerTest {
     }
 
     @Test
-    public void updateProduct_Update_info_of_the_product() throws ServiceException, DomainException {
+    public void updateProduct_Update_info_of_the_product() throws ServiceException {
         service.addProduct(roomijs);
         productsToDeleteAfterTest.add(roomijs);
         int hope = 9876;
@@ -117,7 +116,7 @@ public class ProductManagerTest {
     }
 
     @Test(expected = ServiceException.class)
-    public void updateProduct_DatabaseException_If_product_is_null() throws ServiceException, DomainException {
+    public void updateProduct_DatabaseException_If_product_is_null() throws ServiceException {
         service.addProduct(roomijs);
         productsToDeleteAfterTest.add(roomijs);
         int hope = 9876;

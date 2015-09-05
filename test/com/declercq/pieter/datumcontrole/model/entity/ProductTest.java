@@ -1,6 +1,5 @@
 package com.declercq.pieter.datumcontrole.model.entity;
 
-import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +36,7 @@ public class ProductTest {
     }
 
     @Before
-    public void setUp() throws DomainException {
+    public void setUp() {
         chips = new Product(8710398016591L, 23968, "250GR LAY S BICKY CRISP");
     }
 
@@ -46,106 +45,103 @@ public class ProductTest {
         chips = null;
     }
 
-    /**
-     * Test of setEan method, of class Product.
-     */
     @Test
-    public void setEan_Param_is_new_ean() throws DomainException {
+    public void setEan_Param_is_new_ean() {
         Long newEan = pow(10L, Product.MIN_AMOUNT_OF_DIGITS_EAN - 1);
         chips.setEan(newEan);
         assertEquals(newEan, chips.getEan());
     }
 
-    @Test(expected = DomainException.class)
-    public void setEan_DomainException_If_param_is_null() throws DomainException {
+    @Test(expected = IllegalArgumentException.class)
+    public void setEan_IllegalArgumentException_If_param_is_null() {
         Long newEan = null;
         chips.setEan(newEan);
     }
 
-    @Test(expected = DomainException.class)
-    public void setEan_DomainException_If_param_has_less_than_MIN_digits() throws DomainException {
+    @Test(expected = IllegalArgumentException.class)
+    public void setEan_IllegalArgumentException_If_param_has_less_than_MIN_digits() {
         Long newEan = pow(10L, Product.MIN_AMOUNT_OF_DIGITS_EAN - 2);
         chips.setEan(newEan);
     }
 
-    @Test(expected = DomainException.class)
-    public void setEan_DomainException_If_param_has_more_than_MAX_digits() throws DomainException {
+    @Test(expected = IllegalArgumentException.class)
+    public void setEan_IllegalArgumentException_If_param_has_more_than_MAX_digits() {
         Long newEan = pow(10L, Product.MAX_AMOUNT_OF_DIGITS_EAN);
         chips.setEan(newEan);
     }
 
-    @Test(expected = DomainException.class)
-    public void setEan_DomainException_If_param_is_negative() throws DomainException {
-        Long newEan = pow(-10L, Product.MIN_AMOUNT_OF_DIGITS_EAN - 1);;
+    @Test(expected = IllegalArgumentException.class)
+    public void setEan_IllegalArgumentException_If_param_is_negative() {
+        Long newEan = pow(-10L, Product.MIN_AMOUNT_OF_DIGITS_EAN - 1);
         chips.setEan(newEan);
     }
 
     @Test
-    public void setHope_Param_is_new_hope() throws DomainException {
+    public void setHope_Param_is_new_hope() {
         int newHope = (int) Math.pow(10, Product.MIN_AMOUNT_OF_DIGITS_HOPE - 1);
         chips.setHope(newHope);
         assertEquals(newHope, chips.getHope());
     }
 
-    @Test(expected = DomainException.class)
-    public void setHope_DomainException_If_param_has_less_than_MIN_digits() throws DomainException {
+    @Test(expected = IllegalArgumentException.class)
+    public void setHope_IllegalArgumentException_If_param_has_less_than_MIN_digits() {
         int newHope = (int) Math.pow(10, Product.MIN_AMOUNT_OF_DIGITS_HOPE - 2);
         chips.setHope(newHope);
     }
 
-    @Test(expected = DomainException.class)
-    public void setHope_DomainException_If_param_has_more_than_MAX_digits() throws DomainException {
+    @Test(expected = IllegalArgumentException.class)
+    public void setHope_IllegalArgumentException_If_param_has_more_than_MAX_digits() {
         int newHope = (int) Math.pow(10, Product.MAX_AMOUNT_OF_DIGITS_HOPE);
         chips.setHope(newHope);
     }
 
-    @Test(expected = DomainException.class)
-    public void setHope_DomainException_If_param_is_negative() throws DomainException {
+    @Test(expected = IllegalArgumentException.class)
+    public void setHope_IllegalArgumentException_If_param_is_negative() {
         int newHope = (int) Math.pow(-10, Product.MIN_AMOUNT_OF_DIGITS_HOPE - 1);
         chips.setHope(newHope);
     }
 
     @Test
-    public void setName_Param_is_converted_without_linebreak_and_set_to_name() throws DomainException {
+    public void setName_Param_is_converted_without_linebreak_and_set_to_name() {
         String newName = "\nnieuwe\n productnaam1\n\r\n";
         chips.setName(newName);
         assertEquals("nieuwe productnaam1", chips.getName());
     }
 
     @Test
-    public void setName_Param_is_trimmed_and_set_to_name() throws DomainException {
+    public void setName_Param_is_trimmed_and_set_to_name() {
         String newName = "   nieuwe productnaam1    ";
         chips.setName(newName);
         assertEquals("nieuwe productnaam1", chips.getName());
     }
 
     @Test
-    public void setName_Param_is_converted_to_lowercase_and_set_to_name() throws DomainException {
+    public void setName_Param_is_converted_to_lowercase_and_set_to_name() {
         String newName = "NiEUwe PrODUcTnaAm1";
         chips.setName(newName);
         assertEquals("nieuwe productnaam1", chips.getName());
     }
 
-    @Test(expected = DomainException.class)
-    public void setName_DomainException_If_param_is_null() throws DomainException {
+    @Test(expected = IllegalArgumentException.class)
+    public void setName_IllegalArgumentException_If_param_is_null() {
         String newName = null;
         chips.setName(newName);
     }
-    
-    @Test(expected = DomainException.class)
-    public void setName_DomainException_If_param_does_not_only_consists_of_alphanumeric_char() throws DomainException {
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setName_IllegalArgumentException_If_param_does_not_only_consists_of_alphanumeric_char() {
         String newName = "<?php echo lol; ?php>nieuwe productnaam1";
         chips.setName(newName);
     }
 
-    @Test(expected = DomainException.class)
-    public void setName_DomainException_If_param_If_param_has_less_than_MIN_characters() throws DomainException {
+    @Test(expected = IllegalArgumentException.class)
+    public void setName_IllegalArgumentException_If_param_If_param_has_less_than_MIN_characters() {
         String newName = new String(new char[Product.MIN_AMOUNT_OF_CHARACTERS_NAME - 1]).replace("\0", "a");
         chips.setName(newName);
     }
 
-    @Test(expected = DomainException.class)
-    public void setName_DomainException_If_param_If_param_has_more_than_MAX_characters() throws DomainException {
+    @Test(expected = IllegalArgumentException.class)
+    public void setName_IllegalArgumentException_If_param_If_param_has_more_than_MAX_characters() {
         String newName = new String(new char[Product.MAX_AMOUNT_OF_CHARACTERS_NAME + 1]).replace("\0", "a");
         chips.setName(newName);
     }

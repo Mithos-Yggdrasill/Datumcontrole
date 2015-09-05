@@ -1,8 +1,6 @@
 package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.db.Repository;
-import com.declercq.pieter.datumcontrole.db.SQLiteLocationDatabase;
-import com.declercq.pieter.datumcontrole.db.SQLiteProductDatabase;
 import com.declercq.pieter.datumcontrole.model.entity.Category;
 import com.declercq.pieter.datumcontrole.model.entity.Location;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
@@ -16,16 +14,16 @@ import java.util.Collection;
  */
 public class SQLiteRepository implements Repository {
     
-    private SQLiteProductDatabase productDb;
+    private SQLiteProductRepository productDb;
     
     private SQLiteCategoryRepository categoryDb;
     
-    private SQLiteLocationDatabase locationDb;
+    private SQLiteLocationRepository locationDb;
     
     public SQLiteRepository(String url) throws DatabaseException {
-        productDb = new SQLiteProductDatabase(url);
+        productDb = new SQLiteProductRepository(url);
         categoryDb = new SQLiteCategoryRepository(url);
-        locationDb = new SQLiteLocationDatabase(url);
+        locationDb = new SQLiteLocationRepository(url);
     }
     
     @Override

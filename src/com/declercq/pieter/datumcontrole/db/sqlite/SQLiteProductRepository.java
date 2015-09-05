@@ -74,9 +74,10 @@ public class SQLiteProductRepository implements ProductRepository {
             statement.setLong(1, ean);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                int hope = result.getInt("hope");
-                String name = result.getString("name");
-                product = new Product(ean, hope, name);
+                product = new Product();
+                product.setEan(result.getLong("ean"));
+                product.setHope(result.getInt("hope"));
+                product.setName(result.getString("name"));
             }
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -98,9 +99,10 @@ public class SQLiteProductRepository implements ProductRepository {
             statement.setInt(1, hope);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                long ean = result.getLong("ean");
-                String name = result.getString("name");
-                product = new Product(ean, hope, name);
+                product = new Product();
+                product.setEan(result.getLong("ean"));
+                product.setHope(result.getInt("hope"));
+                product.setName(result.getString("name"));
             }
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -121,10 +123,10 @@ public class SQLiteProductRepository implements ProductRepository {
         try {
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Long ean = result.getLong("ean");
-                int hope = result.getInt("hope");
-                String name = result.getString("name");
-                Product product = new Product(ean, hope, name);
+                Product product = new Product();
+                product.setEan(result.getLong("ean"));
+                product.setHope(result.getInt("hope"));
+                product.setName(result.getString("name"));
                 products.add(product);
             }
         } catch (SQLException e) {

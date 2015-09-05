@@ -31,8 +31,10 @@ public class ProductManagerTest {
         service = new ProductManager(new SQLiteProductRepository("jdbc:sqlite:‪DatumControle.sqlite"));
         size = service.getNumberOfProducts();
         productsToDeleteAfterTest = new ArrayList<>();
-        roomijs = new Product(5412121000114L, 16308, "2.5L ROOMIJS VANILLE");
-
+        roomijs = new Product();
+        roomijs.setEan(5412121000114L);
+        roomijs.setHope(16308);
+        roomijs.setName("2.5L ROOMIJS VANILLE");
     }
 
     @After

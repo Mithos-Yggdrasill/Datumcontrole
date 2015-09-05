@@ -30,7 +30,8 @@ public class LocationManagerTest {
         service = new LocationManager(new SQLiteLocationRepository("jdbc:sqlite:‪DatumControle.sqlite"));
         size = service.getNumberOfLocations();
         locationsToDeleteAfterTest = new ArrayList<>();
-        gang1 = new Location("gang 1");
+        gang1 = new Location();
+        gang1.setName("gang 1");
     }
 
     @After

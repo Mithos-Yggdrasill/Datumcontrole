@@ -42,12 +42,6 @@ public class Product {
     public Product() {
     }
 
-    public Product(long ean, int hope, String name) {
-        setEan(ean);
-        setHope(hope);
-        setName(name);
-    }
-
     public long getEan() {
         return ean;
     }

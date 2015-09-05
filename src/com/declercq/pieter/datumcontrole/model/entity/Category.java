@@ -29,12 +29,6 @@ public class Category {
     public Category() {
     }
 
-    public Category(String name, int sublocations, String color) {
-        setName(name);
-        setSublocations(sublocations);
-        setColor(color);
-    }
-
     public String getName() {
         return name;
     }

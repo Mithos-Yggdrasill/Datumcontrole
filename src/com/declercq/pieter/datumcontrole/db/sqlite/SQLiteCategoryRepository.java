@@ -77,9 +77,10 @@ public class SQLiteCategoryRepository implements CategoryRepository {
             statement.setString(1, name);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                int sublocations = result.getInt("sublocations");
-                String color = result.getString("color");
-                category = new Category(name, sublocations, color);
+                category = new Category();
+                category.setName(result.getString("name"));
+                category.setSublocations(result.getInt("sublocations"));
+                category.setColor(result.getString("color"));
             }
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -100,10 +101,10 @@ public class SQLiteCategoryRepository implements CategoryRepository {
         try {
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                String name = result.getString("name");
-                int sublocations = result.getInt("sublocations");
-                String color = result.getString("color");
-                Category category = new Category(name, sublocations, color);
+                Category category = new Category();
+                category.setName(result.getString("name"));
+                category.setSublocations(result.getInt("sublocations"));
+                category.setColor(result.getString("color"));
                 categories.add(category);
             }
         } catch (SQLException e) {

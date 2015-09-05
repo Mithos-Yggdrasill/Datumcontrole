@@ -30,7 +30,10 @@ public class CategoryManagerTest {
         service = new CategoryManager(new SQLiteCategoryRepository("jdbc:sqlite:‪DatumControle.sqlite"));
         size = service.getNumberOfCategories();
         categoriesToDeleteAfterTest = new ArrayList<>();
-        voeding = new Category("voeding", 11, "#ffa135");
+        voeding = new Category();
+        voeding.setName("voeding");
+        voeding.setSublocations(11);
+        voeding.setColor("#ffa135");
     }
 
     @After

@@ -20,7 +20,8 @@ public class LocationTest {
 
     @Before
     public void setUp() {
-        gang1 = new Location("gang 1");
+        gang1 = new Location();
+        gang1.setName("gang 1");
     }
 
     @After

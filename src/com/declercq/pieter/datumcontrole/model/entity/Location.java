@@ -20,10 +20,6 @@ public class Location {
 
     }
 
-    public Location(String name) {
-        setName(name);
-    }
-
     public String getName() {
         return name;
     }

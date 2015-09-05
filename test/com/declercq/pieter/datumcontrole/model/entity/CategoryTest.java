@@ -19,7 +19,10 @@ public class CategoryTest {
 
     @Before
     public void setUp() {
-        voeding = new Category("voeding", 11, "#ffa135");
+        voeding = new Category();
+        voeding.setName("voeding");
+        voeding.setSublocations(11);
+        voeding.setColor("#ffa135");
     }
 
     @After

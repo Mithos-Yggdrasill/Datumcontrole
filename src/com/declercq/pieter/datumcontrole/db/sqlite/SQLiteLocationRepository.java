@@ -75,7 +75,8 @@ public class SQLiteLocationRepository implements LocationRepository {
             statement.setString(1, name);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                location = new Location(name);
+                location = new Location();
+                location.setName(result.getString("name"));
             }
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -96,8 +97,8 @@ public class SQLiteLocationRepository implements LocationRepository {
         try {
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                String name = result.getString("name");
-                Location location = new Location(name);
+                Location location = new Location();
+                location.setName(result.getString("name"));
                 locations.add(location);
             }
         } catch (SQLException e) {

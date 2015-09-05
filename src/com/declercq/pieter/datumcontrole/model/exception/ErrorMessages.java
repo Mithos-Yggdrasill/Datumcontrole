@@ -134,4 +134,6 @@ public interface ErrorMessages {
     
     public final static String LOCATION_NOT_FOUND = "Er bestaat geen locatie met die naam";
     
+    public final static String DATABASETYPE_NOT_SUPPORTED = "Dit type van databank wordt niet ondersteund";
+    
 }

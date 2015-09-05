@@ -131,5 +131,10 @@ public class Category {
         }
         return true;
     }
+    
+    @Override
+    public String toString(){
+        return this.name;
+    }
 
 }

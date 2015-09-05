@@ -48,7 +48,7 @@ public interface ErrorMessages {
     public final static String NAME_ALPHANUMERIC = "De naam mag enkel uit een combinatie van letters and cijfers bestaan.";
 
     public final static String NAME_NULL = "Er werd null meegegeven als naam";
-    
+
     /**
      * The error-message-code referring to a name with less characters than
      * allowed.
@@ -83,13 +83,13 @@ public interface ErrorMessages {
      * The error-message-code referring to a null product.
      */
     public final static String PRODUCT_NULL = "Er werd null meegegeven als product";
-    
+
     /**
      * The error-message-code referring to an error occurred when the searched
      * product doesn't exists in this database.
      */
     public final static String PRODUCT_NOT_FOUND_EAN = "Er bestaat geen product met die barcode";
-    
+
     public final static String PRODUCT_NOT_FOUND_HOPE = "Er bestaat geen product met die hope";
 
     /**
@@ -103,14 +103,13 @@ public interface ErrorMessages {
      * allowed.
      */
     public final static String CATEGORY_NAME_MAX_LENGTH = "De naam mag maximaal uit " + Category.MAX_AMOUNT_OF_CHARACTERS_NAME + " letters bestaan";
-    
+
     public final static String COLOR_HEXADECIMAL = "De kleur moet in hexadecimaal formaat gegeven zijn.";
-    
+
     public final static String COLOR_NULL = "Er werd null meegegeven als kleur";
-    
+
     public final static String ID_NULL = "Er werd null meegegeven als id";
-    
-    
+
     /**
      * The error-message-code referring to an error occurred when the given
      * category is null.
@@ -118,16 +117,10 @@ public interface ErrorMessages {
     public static final String CATEGORY_NULL = "Er werd null meegegeven als category";
 
     /**
-     * The error-message-code referring to a non valid length of the category
-     * name.
-     */
-    public final static String CATEGORY_NAME = "err_cat_name";
-
-    /**
      * The error-message-code referring to an error occurred when the searched
      * category is not in this database.
      */
-    public final static String CATEGORY_NOT_FOUND = "err_catdb_cat_not_found";
+    public final static String CATEGORY_NOT_FOUND = "Er is geen categorie met die naam";
 
     /**
      * The error-message-code referring to an error occurred when the database
@@ -135,68 +128,8 @@ public interface ErrorMessages {
      */
     public final static String CATEGORY_ALREADY_EXISTS = "Er bestaat reeds een categorie met die naam";
 
-    /**
-     * The error-message-code referring to a date in the past.
-     */
-    public final static String DATE_PAST = "err_date_past";
-
-    /**
-     * The error-message-code referring to a non valid category.
-     */
-    public final static String PRODUCT_CATEGORY = "err_prod_cat";
-
-    /**
-     * The error-message-code referring to a non valid date of the
-     * expiryProduct.
-     */
-    public final static String EXPIRYPRODUCT_EXPIRYDATE = "err_exp_date";
-
-    /**
-     * The error-message-code referring to a non valid date of the
-     * expiryProduct.
-     */
-    public final static String EXPIRYPRODUCT_SPOT = "err_exp_spot";
-
-    /**
-     * The error-message-code referring to an error occurred when the given
-     * expiryProduct is null.
-     */
-    public static final String EXPIRYPRODUCT_NULL = "err_exp_null";
-
-    /**
-     * The error-message-code referring to an error occurred when the searched
-     * expiryProduct is not in this database.
-     */
-    public static final String EXPIRYPRODUCT_NOT_FOUND = "err_exp_not_found";
-
-    /**
-     * The error-message-code referring to an error occurred when the
-     * expiryProduct you want to add already exists in this database.
-     */
-    public static final String EXPIRYPRODUCT_ALREADY_EXISTS = "err_exp_already_exists";
-
-    /**
-     * The error-message-code referring to an error occurred when the expiryList
-     * you want to add already exists in this database.
-     */
-    public static final String EXPIRYLIST_ALREADY_EXISTS = "err_exl_already_exists";
-
-    /**
-     * The error-message-code referring to an error occurred when the searched
-     * expiryList doesn't exists in this database.
-     */
-    public static final String EXPIRYLIST_NOT_FOUND = "err_exl_not_found";
-
-    /**
-     * The error-meesage-code referring to an error occurred when tried to
-     * update an update with itself.
-     */
-    public static final String SAME_ARGUMENTS = "err_same_arguments";
-
-    /**
-     * The error-message-code referring to an error occurred when the default
-     * values are not correct.
-     */
-    public static final String WRONG_DEFAULTS = "wrong_defaults";
-
+    public final static String LOCATION_NULL = "Er werd null meegegeven als locatie";
+    
+    public final static String LOCATION_ALREADY_EXISTS = "Er bestaat reeds een locatie met die naam";
+    
 }

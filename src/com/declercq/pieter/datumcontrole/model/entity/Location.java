@@ -2,6 +2,7 @@ package com.declercq.pieter.datumcontrole.model.entity;
 
 import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
+import java.util.Objects;
 
 /**
  *
@@ -26,7 +27,7 @@ public class Location {
 
     }
 
-    Location(String name) throws DomainException {
+    public Location(String name) throws DomainException {
         setName(name);
     }
 
@@ -51,6 +52,25 @@ public class Location {
             throw new DomainException(ErrorMessages.PRODUCT_NAME_MAX_LENGTH);
         }
         this.name = name;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 83 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Location other = (Location) obj;
+        return true;
     }
 
 }

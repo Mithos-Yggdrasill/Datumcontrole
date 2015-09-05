@@ -1,7 +1,6 @@
 package com.declercq.pieter.datumcontrole.model.service;
 
 import com.declercq.pieter.datumcontrole.db.ProductDatabase;
-import com.declercq.pieter.datumcontrole.db.SQLiteProductDatabase;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.ServiceException;

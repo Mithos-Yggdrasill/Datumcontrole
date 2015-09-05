@@ -2,12 +2,14 @@ package com.declercq.pieter.datumcontrole.db;
 
 import com.declercq.pieter.datumcontrole.model.entity.Location;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
+import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -66,17 +68,65 @@ public class SQLiteLocationDatabase implements LocationDatabase {
 
     @Override
     public Location getLocation(String name) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "SELECT * FROM location WHERE name = ?";
+        Location location = null;
+        initiateStatement(query);
+        try {
+            statement.setString(1, name);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                location = new Location(name);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
+        } catch (DomainException ex) {
+            throw new DatabaseException(ex);
+        } finally {
+            closeConnection();
+        }
+        if (location == null) {
+            throw new DatabaseException(ErrorMessages.LOCATION_NOT_FOUND);
+        }
+        return location;
     }
 
     @Override
     public Collection<Location> getAllLocations() throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "SELECT * FROM location";
+        Collection<Location> locations = new ArrayList<>();
+        initiateStatement(query);
+        try {
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                String name = result.getString("name");
+                Location location = new Location(name);
+                locations.add(location);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
+        } catch (DomainException ex) {
+            throw new DatabaseException(ex);
+        } finally {
+            closeConnection();
+        }
+        return locations;
     }
 
     @Override
     public void updateLocation(Location location) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (location == null) {
+            throw new DatabaseException(ErrorMessages.LOCATION_NULL);
+        }
+        String query = "UPDATE location SET name = ? WHERE name = ?";
+        initiateStatement(query);
+        try {
+            statement.setString(1, location.getName());
+            statement.execute();
+        } catch (SQLException e) {
+            throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
+        } finally {
+            closeConnection();
+        }
     }
 
     @Override

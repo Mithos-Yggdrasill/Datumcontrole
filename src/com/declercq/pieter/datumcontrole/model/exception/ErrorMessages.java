@@ -132,4 +132,6 @@ public interface ErrorMessages {
     
     public final static String LOCATION_ALREADY_EXISTS = "Er bestaat reeds een locatie met die naam";
     
+    public final static String LOCATION_NOT_FOUND = "Er bestaat geen locatie met die naam";
+    
 }

@@ -65,6 +65,43 @@ public class SQLiteLocationDatabaseTest {
     }
 
     @Test
+    public void getLocation_Returns_Location_with_that_name() throws DatabaseException {
+        db.addLocation(gang1);
+        locationsToDeleteAfterTest.add(gang1);
+        assertEquals(gang1, db.getLocation(gang1.getName()));
+    }
+
+    @Test(expected = DatabaseException.class)
+    public void getLocation_DatabaseException_When_name_is_null() throws DatabaseException {
+        String name = null;
+        db.getLocation(name);
+    }
+
+    @Test(expected = DatabaseException.class)
+    public void getLocation_DatabaseException_When_no_location_with_that_name() throws DatabaseException {
+        db.getLocation(gang1.getName());
+    }
+
+    @Test
+    public void getAllLocations_Returns_all_locations() throws DatabaseException {
+        assertEquals(size, db.getAllLocations().size());
+    }
+
+    @Test
+    public void updateLocation_Update_info_of_the_Location() throws DatabaseException, DomainException {
+        db.addLocation(gang1);
+        locationsToDeleteAfterTest.add(gang1);
+        db.updateLocation(gang1);
+    }
+
+    @Test(expected = DatabaseException.class)
+    public void updateProduct_DatabaseException_If_product_is_null() throws DatabaseException, DomainException {
+        db.addLocation(gang1);
+        locationsToDeleteAfterTest.add(gang1);
+        db.updateLocation(null);
+    }
+
+    @Test
     public void deleteLocation_Removes_Location_from_database() throws DatabaseException {
         db.addLocation(gang1);
         size = db.size();
@@ -77,5 +114,5 @@ public class SQLiteLocationDatabaseTest {
         String name = null;
         db.deleteLocation(name);
     }
-    
+
 }

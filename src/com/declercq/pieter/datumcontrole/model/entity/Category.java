@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * @author Pieter Declercq
  * @version 3.0
  */
-public class Category extends Identifier {
+public class Category {
 
     /**
      * The minimum amount of characters the name of a product must have.

@@ -1,5 +1,8 @@
 package com.declercq.pieter.datumcontrole.model.entity;
 
+import com.declercq.pieter.datumcontrole.model.exception.DomainException;
+import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
+
 /**
  *
  * @author Pieter Declercq
@@ -13,7 +16,10 @@ public abstract class Identifier {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id) throws DomainException {
+        if(id == null){
+            throw new DomainException(ErrorMessages.ID_NULL);
+        }
         this.id = id;
     }
 

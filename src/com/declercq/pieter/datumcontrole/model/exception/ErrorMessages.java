@@ -108,29 +108,20 @@ public interface ErrorMessages {
     
     public final static String COLOR_NULL = "Er werd null meegegeven als kleur";
     
+    public final static String ID_NULL = "Er werd null meegegeven als id";
     
     
     /**
      * The error-message-code referring to an error occurred when the given
      * category is null.
      */
-    public static final String CATEGORY_NULL = "err_cat_null";
+    public static final String CATEGORY_NULL = "Er werd null meegegeven als category";
 
     /**
      * The error-message-code referring to a non valid length of the category
      * name.
      */
     public final static String CATEGORY_NAME = "err_cat_name";
-
-    /**
-     * The error-message-code referring to a non valid spot.
-     */
-    public final static String CATEGORY_SPOT = "err_cat_spot";
-
-    /**
-     * The error-message-code referring to a non valid amount of subdomains.
-     */
-    public final static String CATEGORY_SUBDOMAINS = "err_cat_sub";
 
     /**
      * The error-message-code referring to an error occurred when the searched
@@ -142,7 +133,7 @@ public interface ErrorMessages {
      * The error-message-code referring to an error occurred when the database
      * is already in the database.
      */
-    public final static String CATEGORY_ALREADY_EXISTS = "err_catdb_cat_already_exists";
+    public final static String CATEGORY_ALREADY_EXISTS = "Er bestaat reeds een categorie met die naam";
 
     /**
      * The error-message-code referring to a date in the past.

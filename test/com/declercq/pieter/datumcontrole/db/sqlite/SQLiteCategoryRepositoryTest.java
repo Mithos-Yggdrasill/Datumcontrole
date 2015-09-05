@@ -1,4 +1,4 @@
-package com.declercq.pieter.datumcontrole.db;
+package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.model.entity.Category;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
@@ -15,19 +15,19 @@ import static org.junit.Assert.*;
  * @author Pieter Declercq
  * @version 3.0
  */
-public class SQLiteCategoryDatabaseTest {
+public class SQLiteCategoryRepositoryTest {
 
-    private SQLiteCategoryDatabase db;
+    private SQLiteCategoryRepository db;
     private int size;
     private List<Category> categoriesToDeleteAfterTest;
     private Category voeding;
 
-    public SQLiteCategoryDatabaseTest() {
+    public SQLiteCategoryRepositoryTest() {
     }
 
     @Before
     public void setUp() throws DatabaseException, DomainException {
-        db = new SQLiteCategoryDatabase("jdbc:sqlite:‪DatumControle.sqlite");
+        db = new SQLiteCategoryRepository("jdbc:sqlite:‪DatumControle.sqlite");
         size = db.size();
         categoriesToDeleteAfterTest = new ArrayList<>();
         voeding = new Category("voeding", 11, "#ffa135");

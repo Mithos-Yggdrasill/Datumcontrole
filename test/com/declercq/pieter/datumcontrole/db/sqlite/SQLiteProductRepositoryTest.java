@@ -1,4 +1,4 @@
-package com.declercq.pieter.datumcontrole.db;
+package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.model.entity.Product;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
@@ -15,19 +15,19 @@ import static org.junit.Assert.*;
  * @author Pieter Declercq
  * @version 3.0
  */
-public class SQLiteProductDatabaseTest {
+public class SQLiteProductRepositoryTest {
 
-    private SQLiteProductDatabase db;
+    private SQLiteProductRepository db;
     private int size;
     private List<Product> productsToDeleteAfterTest;
     private Product roomijs;
 
-    public SQLiteProductDatabaseTest() {
+    public SQLiteProductRepositoryTest() {
     }
 
     @Before
     public void setUp() throws Exception {
-        db = new SQLiteProductDatabase("jdbc:sqlite:‪DatumControle.sqlite");
+        db = new SQLiteProductRepository("jdbc:sqlite:‪DatumControle.sqlite");
         size = db.size();
         productsToDeleteAfterTest = new ArrayList<>();
         roomijs = new Product(5412121000114L, 16308, "2.5L ROOMIJS VANILLE");

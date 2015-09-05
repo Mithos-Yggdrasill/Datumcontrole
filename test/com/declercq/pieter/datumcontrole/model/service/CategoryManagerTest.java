@@ -1,6 +1,6 @@
 package com.declercq.pieter.datumcontrole.model.service;
 
-import com.declercq.pieter.datumcontrole.db.SQLiteCategoryDatabase;
+import com.declercq.pieter.datumcontrole.db.sqlite.SQLiteCategoryRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Category;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.DomainException;
@@ -32,7 +32,7 @@ public class CategoryManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        service = new CategoryManager(new SQLiteCategoryDatabase("jdbc:sqlite:‪DatumControle.sqlite"));
+        service = new CategoryManager(new SQLiteCategoryRepository("jdbc:sqlite:‪DatumControle.sqlite"));
         size = service.getNumberOfCategories();
         categoriesToDeleteAfterTest = new ArrayList<>();
         voeding = new Category("voeding", 11, "#ffa135");

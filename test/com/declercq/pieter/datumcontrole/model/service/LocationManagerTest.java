@@ -1,6 +1,6 @@
 package com.declercq.pieter.datumcontrole.model.service;
 
-import com.declercq.pieter.datumcontrole.db.SQLiteLocationDatabase;
+import com.declercq.pieter.datumcontrole.db.sqlite.SQLiteLocationRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Location;
 import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ServiceException;
@@ -28,7 +28,7 @@ public class LocationManagerTest {
     
     @Before
     public void setUp() throws Exception {
-        service = new LocationManager(new SQLiteLocationDatabase("jdbc:sqlite:‪DatumControle.sqlite"));
+        service = new LocationManager(new SQLiteLocationRepository("jdbc:sqlite:‪DatumControle.sqlite"));
         size = service.getNumberOfLocations();
         locationsToDeleteAfterTest = new ArrayList<>();
         gang1 = new Location("gang 1");

@@ -109,7 +109,7 @@ public class Product {
     }
 
     public void setName(String name) throws DomainException {
-        if(name == null){
+        if (name == null) {
             throw new DomainException(ErrorMessages.NAME_NULL);
         }
         name = name.replaceAll(System.getProperty("line.separator"), "");
@@ -156,4 +156,10 @@ public class Product {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return ean + "\t" + hope + "\t" + name;
+    }
+
 }

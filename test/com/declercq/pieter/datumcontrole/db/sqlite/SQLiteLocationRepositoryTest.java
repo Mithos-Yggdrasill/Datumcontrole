@@ -1,4 +1,4 @@
-package com.declercq.pieter.datumcontrole.db;
+package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.model.entity.Location;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
@@ -15,19 +15,19 @@ import org.junit.Before;
  * @author Pieter Declercq
  * @version 3.0
  */
-public class SQLiteLocationDatabaseTest {
+public class SQLiteLocationRepositoryTest {
 
-    private SQLiteLocationDatabase db;
+    private SQLiteLocationRepository db;
     private int size;
     private List<Location> locationsToDeleteAfterTest;
     private Location gang1;
 
-    public SQLiteLocationDatabaseTest() {
+    public SQLiteLocationRepositoryTest() {
     }
 
     @Before
     public void setUp() throws DatabaseException, DomainException {
-        db = new SQLiteLocationDatabase("jdbc:sqlite:‪DatumControle.sqlite");
+        db = new SQLiteLocationRepository("jdbc:sqlite:‪DatumControle.sqlite");
         size = db.size();
         locationsToDeleteAfterTest = new ArrayList<>();
         gang1 = new Location("gang 1");

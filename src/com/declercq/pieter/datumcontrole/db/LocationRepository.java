@@ -9,7 +9,7 @@ import java.util.Collection;
  * @author Pieter Declercq
  * @version 3.0
  */
-public interface LocationDatabase {
+public interface LocationRepository {
     
     public int size() throws DatabaseException;
     

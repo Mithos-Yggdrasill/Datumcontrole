@@ -1,6 +1,7 @@
-package com.declercq.pieter.datumcontrole.db;
+package com.declercq.pieter.datumcontrole.db.sqlite;
 
-import com.declercq.pieter.datumcontrole.model.entity.Location;
+import com.declercq.pieter.datumcontrole.db.CategoryRepository;
+import com.declercq.pieter.datumcontrole.model.entity.Category;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
@@ -17,13 +18,13 @@ import java.util.Collection;
  * @author Pieter Declercq
  * @version 3.0
  */
-public class SQLiteLocationDatabase implements LocationDatabase {
+public class SQLiteCategoryRepository implements CategoryRepository {
 
     private Connection connection;
     private PreparedStatement statement;
     String url;
 
-    public SQLiteLocationDatabase(String url) throws DatabaseException {
+    public SQLiteCategoryRepository(String url) throws DatabaseException {
         try {
             Class.forName("org.sqlite.JDBC");
             this.url = url;
@@ -34,7 +35,7 @@ public class SQLiteLocationDatabase implements LocationDatabase {
 
     @Override
     public int size() throws DatabaseException {
-        String query = "SELECT COUNT(name) AS size FROM location";
+        String query = "SELECT COUNT(name) AS size FROM category";
         int size = 0;
         initiateStatement(query);
         try {
@@ -50,32 +51,39 @@ public class SQLiteLocationDatabase implements LocationDatabase {
     }
 
     @Override
-    public void addLocation(Location location) throws DatabaseException {
-        if (location == null) {
-            throw new DatabaseException(ErrorMessages.LOCATION_NULL);
+    public void addCategory(Category category) throws DatabaseException {
+        if (category == null) {
+            throw new DatabaseException(ErrorMessages.CATEGORY_NULL);
         }
-        String query = "INSERT INTO location (name) VALUES (?)";
+        String query = "INSERT INTO category (name, sublocations, color) VALUES (?, ?, ?)";
         initiateStatement(query);
         try {
-            statement.setString(1, location.getName());
+            statement.setString(1, category.getName());
+            statement.setInt(2, category.getSublocations());
+            statement.setString(3, category.getColor());
             statement.execute();
         } catch (SQLException e) {
-            throw new DatabaseException(ErrorMessages.LOCATION_ALREADY_EXISTS, e);
+            throw new DatabaseException(ErrorMessages.CATEGORY_ALREADY_EXISTS, e);
         } finally {
             closeConnection();
         }
     }
 
     @Override
-    public Location getLocation(String name) throws DatabaseException {
-        String query = "SELECT * FROM location WHERE name = ?";
-        Location location = null;
+    public Category getCategory(String name) throws DatabaseException {
+        if (name == null) {
+            throw new DatabaseException(ErrorMessages.NAME_NULL);
+        }
+        String query = "SELECT * FROM category WHERE name = ?";
+        Category category = null;
         initiateStatement(query);
         try {
             statement.setString(1, name);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                location = new Location(name);
+                int sublocations = result.getInt("sublocations");
+                String color = result.getString("color");
+                category = new Category(name, sublocations, color);
             }
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -84,23 +92,25 @@ public class SQLiteLocationDatabase implements LocationDatabase {
         } finally {
             closeConnection();
         }
-        if (location == null) {
-            throw new DatabaseException(ErrorMessages.LOCATION_NOT_FOUND);
+        if (category == null) {
+            throw new DatabaseException(ErrorMessages.CATEGORY_NOT_FOUND);
         }
-        return location;
+        return category;
     }
 
     @Override
-    public Collection<Location> getAllLocations() throws DatabaseException {
-        String query = "SELECT * FROM location";
-        Collection<Location> locations = new ArrayList<>();
+    public Collection<Category> getAllCategories() throws DatabaseException {
+        String query = "SELECT * FROM category";
+        Collection<Category> categories = new ArrayList<>();
         initiateStatement(query);
         try {
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 String name = result.getString("name");
-                Location location = new Location(name);
-                locations.add(location);
+                int sublocations = result.getInt("sublocations");
+                String color = result.getString("color");
+                Category category = new Category(name, sublocations, color);
+                categories.add(category);
             }
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -109,18 +119,20 @@ public class SQLiteLocationDatabase implements LocationDatabase {
         } finally {
             closeConnection();
         }
-        return locations;
+        return categories;
     }
 
     @Override
-    public void updateLocation(Location location) throws DatabaseException {
-        if (location == null) {
-            throw new DatabaseException(ErrorMessages.LOCATION_NULL);
+    public void updateCategory(Category category) throws DatabaseException {
+        if (category == null) {
+            throw new DatabaseException(ErrorMessages.CATEGORY_NULL);
         }
-        String query = "UPDATE location SET name = ? WHERE name = ?";
+        String query = "UPDATE category SET sublocations = ?, color = ? WHERE name = ?";
         initiateStatement(query);
         try {
-            statement.setString(1, location.getName());
+            statement.setInt(1, category.getSublocations());
+            statement.setString(2, category.getColor());
+            statement.setString(3, category.getName());
             statement.execute();
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -130,11 +142,11 @@ public class SQLiteLocationDatabase implements LocationDatabase {
     }
 
     @Override
-    public void deleteLocation(String name) throws DatabaseException {
+    public void deleteCategory(String name) throws DatabaseException {
         if (name == null) {
             throw new DatabaseException(ErrorMessages.NAME_NULL);
         }
-        String query = "DELETE FROM location WHERE name = ?";
+        String query = "DELETE FROM category WHERE name = ?";
         initiateStatement(query);
         try {
             statement.setString(1, name);

@@ -1,6 +1,7 @@
-package com.declercq.pieter.datumcontrole.db;
+package com.declercq.pieter.datumcontrole.db.sqlite;
 
-import com.declercq.pieter.datumcontrole.model.entity.Product;
+import com.declercq.pieter.datumcontrole.db.LocationRepository;
+import com.declercq.pieter.datumcontrole.model.entity.Location;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
@@ -17,13 +18,13 @@ import java.util.Collection;
  * @author Pieter Declercq
  * @version 3.0
  */
-public class SQLiteProductDatabase implements ProductDatabase {
+public class SQLiteLocationRepository implements LocationRepository {
 
     private Connection connection;
     private PreparedStatement statement;
     String url;
 
-    public SQLiteProductDatabase(String url) throws DatabaseException {
+    public SQLiteLocationRepository(String url) throws DatabaseException {
         try {
             Class.forName("org.sqlite.JDBC");
             this.url = url;
@@ -34,7 +35,7 @@ public class SQLiteProductDatabase implements ProductDatabase {
 
     @Override
     public int size() throws DatabaseException {
-        String query = "SELECT COUNT(ean) AS size FROM product";
+        String query = "SELECT COUNT(name) AS size FROM location";
         int size = 0;
         initiateStatement(query);
         try {
@@ -50,39 +51,32 @@ public class SQLiteProductDatabase implements ProductDatabase {
     }
 
     @Override
-    public void addProduct(Product product) throws DatabaseException {
-        if (product == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_NULL);
+    public void addLocation(Location location) throws DatabaseException {
+        if (location == null) {
+            throw new DatabaseException(ErrorMessages.LOCATION_NULL);
         }
-        String query = "INSERT INTO product (ean, hope, name) VALUES (?, ?, ?)";
+        String query = "INSERT INTO location (name) VALUES (?)";
         initiateStatement(query);
         try {
-            statement.setLong(1, product.getEan());
-            statement.setInt(2, product.getHope());
-            statement.setString(3, product.getName());
+            statement.setString(1, location.getName());
             statement.execute();
         } catch (SQLException e) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_ALREADY_EXISTS, e);
+            throw new DatabaseException(ErrorMessages.LOCATION_ALREADY_EXISTS, e);
         } finally {
             closeConnection();
         }
     }
 
     @Override
-    public Product getProductByEan(Long ean) throws DatabaseException {
-        if (ean == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_EAN_NULL);
-        }
-        String query = "SELECT * FROM product WHERE ean = ?";
-        Product product = null;
+    public Location getLocation(String name) throws DatabaseException {
+        String query = "SELECT * FROM location WHERE name = ?";
+        Location location = null;
         initiateStatement(query);
         try {
-            statement.setLong(1, ean);
+            statement.setString(1, name);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                int hope = result.getInt("hope");
-                String name = result.getString("name");
-                product = new Product(ean, hope, name);
+                location = new Location(name);
             }
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -91,24 +85,23 @@ public class SQLiteProductDatabase implements ProductDatabase {
         } finally {
             closeConnection();
         }
-        if (product == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_NOT_FOUND_EAN);
+        if (location == null) {
+            throw new DatabaseException(ErrorMessages.LOCATION_NOT_FOUND);
         }
-        return product;
+        return location;
     }
 
     @Override
-    public Product getProductByHope(int hope) throws DatabaseException {
-        String query = "SELECT * FROM product WHERE hope = ?";
-        Product product = null;
+    public Collection<Location> getAllLocations() throws DatabaseException {
+        String query = "SELECT * FROM location";
+        Collection<Location> locations = new ArrayList<>();
         initiateStatement(query);
         try {
-            statement.setInt(1, hope);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                Long ean = result.getLong("ean");
                 String name = result.getString("name");
-                product = new Product(ean, hope, name);
+                Location location = new Location(name);
+                locations.add(location);
             }
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -117,47 +110,18 @@ public class SQLiteProductDatabase implements ProductDatabase {
         } finally {
             closeConnection();
         }
-        if (product == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_NOT_FOUND_HOPE);
-        }
-        return product;
+        return locations;
     }
 
     @Override
-    public Collection<Product> getAllProducts() throws DatabaseException {
-        String query = "SELECT * FROM product";
-        Collection<Product> products = new ArrayList<>();
+    public void updateLocation(Location location) throws DatabaseException {
+        if (location == null) {
+            throw new DatabaseException(ErrorMessages.LOCATION_NULL);
+        }
+        String query = "UPDATE location SET name = ? WHERE name = ?";
         initiateStatement(query);
         try {
-            ResultSet result = statement.executeQuery();
-            while (result.next()) {
-                Long ean = result.getLong("ean");
-                int hope = result.getInt("hope");
-                String name = result.getString("name");
-                Product product = new Product(ean, hope, name);
-                products.add(product);
-            }
-        } catch (SQLException e) {
-            throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
-        } catch (DomainException ex) {
-            throw new DatabaseException(ex);
-        } finally {
-            closeConnection();
-        }
-        return products;
-    }
-
-    @Override
-    public void updateProduct(Product product) throws DatabaseException {
-        if (product == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_NULL);
-        }
-        String query = "UPDATE product SET hope = ?, name = ? WHERE ean = ?";
-        initiateStatement(query);
-        try {
-            statement.setInt(1, product.getHope());
-            statement.setString(2, product.getName());
-            statement.setLong(3, product.getEan());
+            statement.setString(1, location.getName());
             statement.execute();
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -167,14 +131,14 @@ public class SQLiteProductDatabase implements ProductDatabase {
     }
 
     @Override
-    public void deleteProduct(Long ean) throws DatabaseException {
-        if (ean == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_EAN_NULL);
+    public void deleteLocation(String name) throws DatabaseException {
+        if (name == null) {
+            throw new DatabaseException(ErrorMessages.NAME_NULL);
         }
-        String query = "DELETE FROM product WHERE ean = ?";
+        String query = "DELETE FROM location WHERE name = ?";
         initiateStatement(query);
         try {
-            statement.setLong(1, ean);
+            statement.setString(1, name);
             statement.execute();
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -200,4 +164,5 @@ public class SQLiteProductDatabase implements ProductDatabase {
             throw new DatabaseException(ErrorMessages.DATABASE_CLOSSING_CONNECTION, e);
         }
     }
+
 }

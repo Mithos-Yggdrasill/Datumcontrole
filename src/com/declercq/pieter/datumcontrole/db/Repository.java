@@ -11,7 +11,7 @@ import java.util.Collection;
  * @author Pieter Declercq
  * @version 3.0
  */
-public interface Database {
+public interface Repository {
     
     public void addProduct(Product product) throws DatabaseException;
     

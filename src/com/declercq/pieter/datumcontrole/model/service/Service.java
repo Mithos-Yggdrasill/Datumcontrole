@@ -1,5 +1,7 @@
 package com.declercq.pieter.datumcontrole.model.service;
 
+import com.declercq.pieter.datumcontrole.model.exception.ServiceException;
+
 /**
  *
  * @author Pieter Declercq
@@ -7,8 +9,9 @@ package com.declercq.pieter.datumcontrole.model.service;
  */
 public class Service {
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws ServiceException {
+        DatumControle service = new DatumControle("sqlite");
+        System.out.println(service.getAllCategories());
     }
 
 }

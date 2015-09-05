@@ -1,7 +1,7 @@
 package com.declercq.pieter.datumcontrole.model.service;
 
-import com.declercq.pieter.datumcontrole.db.Database;
-import com.declercq.pieter.datumcontrole.db.DatabaseFactory;
+import com.declercq.pieter.datumcontrole.db.Repository;
+import com.declercq.pieter.datumcontrole.db.RepositoryFactory;
 import com.declercq.pieter.datumcontrole.model.entity.Category;
 import com.declercq.pieter.datumcontrole.model.entity.Location;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
@@ -16,11 +16,11 @@ import java.util.Collection;
  */
 public class DatumControle {
 
-    private Database db;
+    private Repository db;
 
     public DatumControle(String dbType) throws ServiceException {
         try {
-            db = DatabaseFactory.createDatabase(dbType);
+            db = RepositoryFactory.createDatabase(dbType);
         } catch (DatabaseException ex) {
             throw new ServiceException(ex);
         }
@@ -30,6 +30,7 @@ public class DatumControle {
         try {
             db.addProduct(product);
         } catch (DatabaseException ex) {
+            System.out.println(product);
             throw new ServiceException(ex);
         }
     }

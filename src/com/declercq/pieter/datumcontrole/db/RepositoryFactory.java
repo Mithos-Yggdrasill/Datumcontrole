@@ -8,9 +8,9 @@ import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
  * @author Pieter Declercq
  * @version 3.0
  */
-public class DatabaseFactory {
+public class RepositoryFactory {
 
-    public static Database createDatabase(String dbType) throws DatabaseException {
+    public static Repository createDatabase(String dbType) throws DatabaseException {
         if(dbType.equals("sqlite")){
             return new SQLiteDatabase("jdbc:sqlite:‪DatumControle.sqlite");
         }

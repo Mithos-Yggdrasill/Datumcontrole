@@ -1,6 +1,7 @@
-package com.declercq.pieter.datumcontrole.db;
+package com.declercq.pieter.datumcontrole.db.sqlite;
 
-import com.declercq.pieter.datumcontrole.model.entity.Category;
+import com.declercq.pieter.datumcontrole.db.ProductRepository;
+import com.declercq.pieter.datumcontrole.model.entity.Product;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
@@ -17,13 +18,13 @@ import java.util.Collection;
  * @author Pieter Declercq
  * @version 3.0
  */
-public class SQLiteCategoryDatabase implements CategoryDatabase {
+public class SQLiteProductRepository implements ProductRepository {
 
     private Connection connection;
     private PreparedStatement statement;
     String url;
 
-    public SQLiteCategoryDatabase(String url) throws DatabaseException {
+    public SQLiteProductRepository(String url) throws DatabaseException {
         try {
             Class.forName("org.sqlite.JDBC");
             this.url = url;
@@ -34,7 +35,7 @@ public class SQLiteCategoryDatabase implements CategoryDatabase {
 
     @Override
     public int size() throws DatabaseException {
-        String query = "SELECT COUNT(name) AS size FROM category";
+        String query = "SELECT COUNT(ean) AS size FROM product";
         int size = 0;
         initiateStatement(query);
         try {
@@ -50,66 +51,39 @@ public class SQLiteCategoryDatabase implements CategoryDatabase {
     }
 
     @Override
-    public void addCategory(Category category) throws DatabaseException {
-        if (category == null) {
-            throw new DatabaseException(ErrorMessages.CATEGORY_NULL);
+    public void addProduct(Product product) throws DatabaseException {
+        if (product == null) {
+            throw new DatabaseException(ErrorMessages.PRODUCT_NULL);
         }
-        String query = "INSERT INTO category (name, sublocations, color) VALUES (?, ?, ?)";
+        String query = "INSERT INTO product (ean, hope, name) VALUES (?, ?, ?)";
         initiateStatement(query);
         try {
-            statement.setString(1, category.getName());
-            statement.setInt(2, category.getSublocations());
-            statement.setString(3, category.getColor());
+            statement.setLong(1, product.getEan());
+            statement.setInt(2, product.getHope());
+            statement.setString(3, product.getName());
             statement.execute();
         } catch (SQLException e) {
-            throw new DatabaseException(ErrorMessages.CATEGORY_ALREADY_EXISTS, e);
+            throw new DatabaseException(ErrorMessages.PRODUCT_ALREADY_EXISTS, e);
         } finally {
             closeConnection();
         }
     }
 
     @Override
-    public Category getCategory(String name) throws DatabaseException {
-        if (name == null) {
-            throw new DatabaseException(ErrorMessages.NAME_NULL);
+    public Product getProductByEan(Long ean) throws DatabaseException {
+        if (ean == null) {
+            throw new DatabaseException(ErrorMessages.PRODUCT_EAN_NULL);
         }
-        String query = "SELECT * FROM category WHERE name = ?";
-        Category category = null;
+        String query = "SELECT * FROM product WHERE ean = ?";
+        Product product = null;
         initiateStatement(query);
         try {
-            statement.setString(1, name);
+            statement.setLong(1, ean);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                int sublocations = result.getInt("sublocations");
-                String color = result.getString("color");
-                category = new Category(name, sublocations, color);
-            }
-        } catch (SQLException e) {
-            throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
-        } catch (DomainException ex) {
-            throw new DatabaseException(ex);
-        } finally {
-            closeConnection();
-        }
-        if (category == null) {
-            throw new DatabaseException(ErrorMessages.CATEGORY_NOT_FOUND);
-        }
-        return category;
-    }
-
-    @Override
-    public Collection<Category> getAllCategories() throws DatabaseException {
-        String query = "SELECT * FROM category";
-        Collection<Category> categories = new ArrayList<>();
-        initiateStatement(query);
-        try {
-            ResultSet result = statement.executeQuery();
-            while (result.next()) {
+                int hope = result.getInt("hope");
                 String name = result.getString("name");
-                int sublocations = result.getInt("sublocations");
-                String color = result.getString("color");
-                Category category = new Category(name, sublocations, color);
-                categories.add(category);
+                product = new Product(ean, hope, name);
             }
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -118,20 +92,73 @@ public class SQLiteCategoryDatabase implements CategoryDatabase {
         } finally {
             closeConnection();
         }
-        return categories;
+        if (product == null) {
+            throw new DatabaseException(ErrorMessages.PRODUCT_NOT_FOUND_EAN);
+        }
+        return product;
     }
 
     @Override
-    public void updateCategory(Category category) throws DatabaseException {
-        if (category == null) {
-            throw new DatabaseException(ErrorMessages.CATEGORY_NULL);
-        }
-        String query = "UPDATE category SET sublocations = ?, color = ? WHERE name = ?";
+    public Product getProductByHope(int hope) throws DatabaseException {
+        String query = "SELECT * FROM product WHERE hope = ?";
+        Product product = null;
         initiateStatement(query);
         try {
-            statement.setInt(1, category.getSublocations());
-            statement.setString(2, category.getColor());
-            statement.setString(3, category.getName());
+            statement.setInt(1, hope);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Long ean = result.getLong("ean");
+                String name = result.getString("name");
+                product = new Product(ean, hope, name);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
+        } catch (DomainException ex) {
+            throw new DatabaseException(ex);
+        } finally {
+            closeConnection();
+        }
+        if (product == null) {
+            throw new DatabaseException(ErrorMessages.PRODUCT_NOT_FOUND_HOPE);
+        }
+        return product;
+    }
+
+    @Override
+    public Collection<Product> getAllProducts() throws DatabaseException {
+        String query = "SELECT * FROM product";
+        Collection<Product> products = new ArrayList<>();
+        initiateStatement(query);
+        try {
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Long ean = result.getLong("ean");
+                int hope = result.getInt("hope");
+                String name = result.getString("name");
+                Product product = new Product(ean, hope, name);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
+        } catch (DomainException ex) {
+            throw new DatabaseException(ex);
+        } finally {
+            closeConnection();
+        }
+        return products;
+    }
+
+    @Override
+    public void updateProduct(Product product) throws DatabaseException {
+        if (product == null) {
+            throw new DatabaseException(ErrorMessages.PRODUCT_NULL);
+        }
+        String query = "UPDATE product SET hope = ?, name = ? WHERE ean = ?";
+        initiateStatement(query);
+        try {
+            statement.setInt(1, product.getHope());
+            statement.setString(2, product.getName());
+            statement.setLong(3, product.getEan());
             statement.execute();
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -141,14 +168,14 @@ public class SQLiteCategoryDatabase implements CategoryDatabase {
     }
 
     @Override
-    public void deleteCategory(String name) throws DatabaseException {
-        if (name == null) {
-            throw new DatabaseException(ErrorMessages.NAME_NULL);
+    public void deleteProduct(Long ean) throws DatabaseException {
+        if (ean == null) {
+            throw new DatabaseException(ErrorMessages.PRODUCT_EAN_NULL);
         }
-        String query = "DELETE FROM category WHERE name = ?";
+        String query = "DELETE FROM product WHERE ean = ?";
         initiateStatement(query);
         try {
-            statement.setString(1, name);
+            statement.setLong(1, ean);
             statement.execute();
         } catch (SQLException e) {
             throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
@@ -174,5 +201,4 @@ public class SQLiteCategoryDatabase implements CategoryDatabase {
             throw new DatabaseException(ErrorMessages.DATABASE_CLOSSING_CONNECTION, e);
         }
     }
-
 }

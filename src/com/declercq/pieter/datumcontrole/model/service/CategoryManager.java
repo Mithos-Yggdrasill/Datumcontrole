@@ -1,6 +1,6 @@
 package com.declercq.pieter.datumcontrole.model.service;
 
-import com.declercq.pieter.datumcontrole.db.CategoryDatabase;
+import com.declercq.pieter.datumcontrole.db.CategoryRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Category;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.ServiceException;
@@ -13,9 +13,9 @@ import java.util.Collection;
  */
 public class CategoryManager {
 
-    private CategoryDatabase db;
+    private CategoryRepository db;
     
-    public CategoryManager(CategoryDatabase db){
+    public CategoryManager(CategoryRepository db){
         this.db = db;
     }
     

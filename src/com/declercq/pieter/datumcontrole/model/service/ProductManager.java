@@ -1,6 +1,6 @@
 package com.declercq.pieter.datumcontrole.model.service;
 
-import com.declercq.pieter.datumcontrole.db.ProductDatabase;
+import com.declercq.pieter.datumcontrole.db.ProductRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.ServiceException;
@@ -13,9 +13,9 @@ import java.util.Collection;
  */
 public class ProductManager {
 
-    private ProductDatabase db;
+    private ProductRepository db;
 
-    public ProductManager(ProductDatabase db) {
+    public ProductManager(ProductRepository db) {
         this.db = db;
     }
 

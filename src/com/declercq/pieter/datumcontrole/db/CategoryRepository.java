@@ -9,7 +9,7 @@ import java.util.Collection;
  * @author Pieter Declercq
  * @version 3.0
  */
-public interface CategoryDatabase {
+public interface CategoryRepository {
     
     public int size() throws DatabaseException;
     

@@ -2,7 +2,7 @@ package com.declercq.pieter.datumcontrole.model.service;
 
 import com.declercq.pieter.datumcontrole.db.ProductRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
-import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
+import com.declercq.pieter.datumcontrole.model.exception.db.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.ServiceException;
 import java.util.Collection;
 

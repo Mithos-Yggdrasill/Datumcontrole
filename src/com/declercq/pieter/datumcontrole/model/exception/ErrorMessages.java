@@ -8,7 +8,7 @@ public interface ErrorMessages {
     /**
      * The error-message-code referring to a null entered as EAN.
      */
-    public final static String PRODUCT_EAN_NULL = "Er werd null meegegeven als barcode";
+    public final static String EAN_NULL = "Er werd null meegegeven als barcode";
 
     /**
      * The error-message-code referring to a non valid length of the barcode.

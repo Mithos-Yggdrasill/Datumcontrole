@@ -1,4 +1,4 @@
-package com.declercq.pieter.datumcontrole.model.exception;
+package com.declercq.pieter.datumcontrole.model.exception.db;
 
 /**
  *

@@ -2,8 +2,10 @@ package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.db.CategoryRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Category;
-import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
+import com.declercq.pieter.datumcontrole.model.exception.db.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
+import com.declercq.pieter.datumcontrole.model.exception.db.CategoryAlreadyExistsException;
+import com.declercq.pieter.datumcontrole.model.exception.db.CategoryNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -52,7 +54,7 @@ public class SQLiteCategoryRepository implements CategoryRepository {
     @Override
     public void addCategory(Category category) throws DatabaseException {
         if (category == null) {
-            throw new DatabaseException(ErrorMessages.CATEGORY_NULL);
+            throw new IllegalArgumentException(ErrorMessages.CATEGORY_NULL);
         }
         String query = "INSERT INTO category (name, sublocations, color) VALUES (?, ?, ?)";
         initiateStatement(query);
@@ -62,7 +64,7 @@ public class SQLiteCategoryRepository implements CategoryRepository {
             statement.setString(3, category.getColor());
             statement.execute();
         } catch (SQLException e) {
-            throw new DatabaseException(ErrorMessages.CATEGORY_ALREADY_EXISTS, e);
+            throw new CategoryAlreadyExistsException(ErrorMessages.CATEGORY_ALREADY_EXISTS, e);
         } finally {
             closeConnection();
         }
@@ -71,7 +73,7 @@ public class SQLiteCategoryRepository implements CategoryRepository {
     @Override
     public Category getCategory(String name) throws DatabaseException {
         if (name == null) {
-            throw new DatabaseException(ErrorMessages.NAME_NULL);
+            throw new IllegalArgumentException(ErrorMessages.NAME_NULL);
         }
         String query = "SELECT * FROM category WHERE name = ?";
         Category category = null;
@@ -90,7 +92,7 @@ public class SQLiteCategoryRepository implements CategoryRepository {
             closeConnection();
         }
         if (category == null) {
-            throw new DatabaseException(ErrorMessages.CATEGORY_NOT_FOUND);
+            throw new CategoryNotFoundException(ErrorMessages.CATEGORY_NOT_FOUND);
         }
         return category;
     }
@@ -120,7 +122,7 @@ public class SQLiteCategoryRepository implements CategoryRepository {
     @Override
     public void updateCategory(Category category) throws DatabaseException {
         if (category == null) {
-            throw new DatabaseException(ErrorMessages.CATEGORY_NULL);
+            throw new IllegalArgumentException(ErrorMessages.CATEGORY_NULL);
         }
         String query = "UPDATE category SET sublocations = ?, color = ? WHERE name = ?";
         initiateStatement(query);
@@ -139,7 +141,7 @@ public class SQLiteCategoryRepository implements CategoryRepository {
     @Override
     public void deleteCategory(String name) throws DatabaseException {
         if (name == null) {
-            throw new DatabaseException(ErrorMessages.NAME_NULL);
+            throw new IllegalArgumentException(ErrorMessages.NAME_NULL);
         }
         String query = "DELETE FROM category WHERE name = ?";
         initiateStatement(query);

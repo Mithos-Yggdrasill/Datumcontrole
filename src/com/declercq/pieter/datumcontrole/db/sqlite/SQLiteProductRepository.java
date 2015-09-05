@@ -2,8 +2,10 @@ package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.db.ProductRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
-import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
+import com.declercq.pieter.datumcontrole.model.exception.db.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
+import com.declercq.pieter.datumcontrole.model.exception.db.ProductAlreadyExistsException;
+import com.declercq.pieter.datumcontrole.model.exception.db.ProductNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -52,7 +54,7 @@ public class SQLiteProductRepository implements ProductRepository {
     @Override
     public void addProduct(Product product) throws DatabaseException {
         if (product == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_NULL);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_NULL);
         }
         String query = "INSERT INTO product (ean, hope, name) VALUES (?, ?, ?)";
         initiateStatement(query);
@@ -62,7 +64,7 @@ public class SQLiteProductRepository implements ProductRepository {
             statement.setString(3, product.getName());
             statement.execute();
         } catch (SQLException e) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_ALREADY_EXISTS, e);
+            throw new ProductAlreadyExistsException(ErrorMessages.PRODUCT_ALREADY_EXISTS, e);
         } finally {
             closeConnection();
         }
@@ -71,7 +73,7 @@ public class SQLiteProductRepository implements ProductRepository {
     @Override
     public Product getProductByEan(Long ean) throws DatabaseException {
         if (ean == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_EAN_NULL);
+            throw new IllegalArgumentException(ErrorMessages.EAN_NULL);
         }
         String query = "SELECT * FROM product WHERE ean = ?";
         Product product = null;
@@ -90,7 +92,7 @@ public class SQLiteProductRepository implements ProductRepository {
             closeConnection();
         }
         if (product == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_NOT_FOUND_EAN);
+            throw new ProductNotFoundException(ErrorMessages.PRODUCT_NOT_FOUND_EAN);
         }
         return product;
     }
@@ -114,7 +116,7 @@ public class SQLiteProductRepository implements ProductRepository {
             closeConnection();
         }
         if (product == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_NOT_FOUND_HOPE);
+            throw new ProductNotFoundException(ErrorMessages.PRODUCT_NOT_FOUND_HOPE);
         }
         return product;
     }
@@ -144,7 +146,7 @@ public class SQLiteProductRepository implements ProductRepository {
     @Override
     public void updateProduct(Product product) throws DatabaseException {
         if (product == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_NULL);
+            throw new IllegalArgumentException(ErrorMessages.PRODUCT_NULL);
         }
         String query = "UPDATE product SET hope = ?, name = ? WHERE ean = ?";
         initiateStatement(query);
@@ -163,7 +165,7 @@ public class SQLiteProductRepository implements ProductRepository {
     @Override
     public void deleteProduct(Long ean) throws DatabaseException {
         if (ean == null) {
-            throw new DatabaseException(ErrorMessages.PRODUCT_EAN_NULL);
+            throw new IllegalArgumentException(ErrorMessages.EAN_NULL);
         }
         String query = "DELETE FROM product WHERE ean = ?";
         initiateStatement(query);

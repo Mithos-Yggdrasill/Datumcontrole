@@ -2,8 +2,10 @@ package com.declercq.pieter.datumcontrole.db.sqlite;
 
 import com.declercq.pieter.datumcontrole.db.LocationRepository;
 import com.declercq.pieter.datumcontrole.model.entity.Location;
-import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
+import com.declercq.pieter.datumcontrole.model.exception.db.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
+import com.declercq.pieter.datumcontrole.model.exception.db.LocationAlreadyExistsException;
+import com.declercq.pieter.datumcontrole.model.exception.db.LocationNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -52,7 +54,7 @@ public class SQLiteLocationRepository implements LocationRepository {
     @Override
     public void addLocation(Location location) throws DatabaseException {
         if (location == null) {
-            throw new DatabaseException(ErrorMessages.LOCATION_NULL);
+            throw new IllegalArgumentException(ErrorMessages.LOCATION_NULL);
         }
         String query = "INSERT INTO location (name) VALUES (?)";
         initiateStatement(query);
@@ -60,7 +62,7 @@ public class SQLiteLocationRepository implements LocationRepository {
             statement.setString(1, location.getName());
             statement.execute();
         } catch (SQLException e) {
-            throw new DatabaseException(ErrorMessages.LOCATION_ALREADY_EXISTS, e);
+            throw new LocationAlreadyExistsException(ErrorMessages.LOCATION_ALREADY_EXISTS, e);
         } finally {
             closeConnection();
         }
@@ -83,7 +85,7 @@ public class SQLiteLocationRepository implements LocationRepository {
             closeConnection();
         }
         if (location == null) {
-            throw new DatabaseException(ErrorMessages.LOCATION_NOT_FOUND);
+            throw new LocationNotFoundException(ErrorMessages.LOCATION_NOT_FOUND);
         }
         return location;
     }
@@ -111,7 +113,7 @@ public class SQLiteLocationRepository implements LocationRepository {
     @Override
     public void updateLocation(Location location) throws DatabaseException {
         if (location == null) {
-            throw new DatabaseException(ErrorMessages.LOCATION_NULL);
+            throw new IllegalArgumentException(ErrorMessages.LOCATION_NULL);
         }
         String query = "UPDATE location SET name = ? WHERE name = ?";
         initiateStatement(query);
@@ -128,7 +130,7 @@ public class SQLiteLocationRepository implements LocationRepository {
     @Override
     public void deleteLocation(String name) throws DatabaseException {
         if (name == null) {
-            throw new DatabaseException(ErrorMessages.NAME_NULL);
+            throw new IllegalArgumentException(ErrorMessages.NAME_NULL);
         }
         String query = "DELETE FROM location WHERE name = ?";
         initiateStatement(query);

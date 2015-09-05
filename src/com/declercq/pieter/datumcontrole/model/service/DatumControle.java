@@ -5,7 +5,7 @@ import com.declercq.pieter.datumcontrole.db.RepositoryFactory;
 import com.declercq.pieter.datumcontrole.model.entity.Category;
 import com.declercq.pieter.datumcontrole.model.entity.Location;
 import com.declercq.pieter.datumcontrole.model.entity.Product;
-import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
+import com.declercq.pieter.datumcontrole.model.exception.db.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.ServiceException;
 import java.util.Collection;
 

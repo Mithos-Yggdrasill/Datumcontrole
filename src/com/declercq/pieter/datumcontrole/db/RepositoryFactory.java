@@ -1,7 +1,7 @@
 package com.declercq.pieter.datumcontrole.db;
 
 import com.declercq.pieter.datumcontrole.db.sqlite.SQLiteRepository;
-import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
+import com.declercq.pieter.datumcontrole.model.exception.db.DatabaseException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
 
 /**

@@ -72,7 +72,7 @@ public class Product {
 
     public void setEan(Long ean) {
         if (ean == null) {
-            throw new IllegalArgumentException(ErrorMessages.PRODUCT_EAN_NULL);
+            throw new IllegalArgumentException(ErrorMessages.EAN_NULL);
         }
         if (ean < 0) {
             throw new IllegalArgumentException(ErrorMessages.PRODUCT_EAN_NEGATIVE);

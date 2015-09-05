@@ -63,6 +63,29 @@ public class SQLiteCategoryDatabaseTest {
         categoriesToDeleteAfterTest.add(voeding);
         db.addCategory(voeding);
     }
+    
+    @Test
+    public void getCategory_Returns_Category_with_that_name() throws DatabaseException {
+        db.addCategory(voeding);
+        categoriesToDeleteAfterTest.add(voeding);
+        assertEquals(voeding, db.getCategory(voeding.getName()));
+    }
+
+    @Test(expected = DatabaseException.class)
+    public void getCategory_DatabaseException_When_name_is_null() throws DatabaseException {
+        String name = null;
+        db.getCategory(name);
+    }
+
+    @Test(expected = DatabaseException.class)
+    public void getCategory_DatabaseException_When_no_category_with_that_name() throws DatabaseException {
+        db.getCategory(voeding.getName());
+    }
+    
+    @Test
+    public void getAllCategories_Returns_all_categories() throws DatabaseException {
+        assertEquals(size, db.getAllCategories().size());
+    }
 
     @Test
     public void deleteCategory_Removes_Category_from_database() throws DatabaseException {

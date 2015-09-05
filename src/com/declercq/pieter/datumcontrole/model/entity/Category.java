@@ -2,6 +2,7 @@ package com.declercq.pieter.datumcontrole.model.entity;
 
 import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -99,6 +100,36 @@ public class Category {
             throw new DomainException(ErrorMessages.COLOR_HEXADECIMAL);
         }
         this.color = color;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.name);
+        hash = 23 * hash + this.sublocations;
+        hash = 23 * hash + Objects.hashCode(this.color);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Category other = (Category) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (this.sublocations != other.sublocations) {
+            return false;
+        }
+        if (!Objects.equals(this.color, other.color)) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -2,12 +2,14 @@ package com.declercq.pieter.datumcontrole.db;
 
 import com.declercq.pieter.datumcontrole.model.entity.Category;
 import com.declercq.pieter.datumcontrole.model.exception.DatabaseException;
+import com.declercq.pieter.datumcontrole.model.exception.DomainException;
 import com.declercq.pieter.datumcontrole.model.exception.ErrorMessages;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -68,12 +70,55 @@ public class SQLiteCategoryDatabase implements CategoryDatabase {
 
     @Override
     public Category getCategory(String name) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (name == null) {
+            throw new DatabaseException(ErrorMessages.NAME_NULL);
+        }
+        String query = "SELECT * FROM category WHERE name = ?";
+        Category category = null;
+        initiateStatement(query);
+        try {
+            statement.setString(1, name);
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                int sublocations = result.getInt("sublocations");
+                String color = result.getString("color");
+                category = new Category(name, sublocations, color);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
+        } catch (DomainException ex) {
+            throw new DatabaseException(ex);
+        } finally {
+            closeConnection();
+        }
+        if (category == null) {
+            throw new DatabaseException(ErrorMessages.CATEGORY_NOT_FOUND);
+        }
+        return category;
     }
 
     @Override
     public Collection<Category> getAllCategories() throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "SELECT * FROM category";
+        Collection<Category> categories = new ArrayList<>();
+        initiateStatement(query);
+        try {
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                String name = result.getString("name");
+                int sublocations = result.getInt("sublocations");
+                String color = result.getString("color");
+                Category category = new Category(name, sublocations, color);
+                categories.add(category);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
+        } catch (DomainException ex) {
+            throw new DatabaseException(ex);
+        } finally {
+            closeConnection();
+        }
+        return categories;
     }
 
     @Override

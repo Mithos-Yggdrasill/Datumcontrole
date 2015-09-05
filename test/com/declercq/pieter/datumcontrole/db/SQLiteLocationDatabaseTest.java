@@ -12,7 +12,8 @@ import org.junit.Before;
 
 /**
  *
- * @author Pieter
+ * @author Pieter Declercq
+ * @version 3.0
  */
 public class SQLiteLocationDatabaseTest {
 
@@ -41,7 +42,6 @@ public class SQLiteLocationDatabaseTest {
         size = 0;
         locationsToDeleteAfterTest = null;
         gang1 = null;
-
     }
 
     @Test

@@ -63,7 +63,7 @@ public class SQLiteCategoryDatabaseTest {
         categoriesToDeleteAfterTest.add(voeding);
         db.addCategory(voeding);
     }
-    
+
     @Test
     public void getCategory_Returns_Category_with_that_name() throws DatabaseException {
         db.addCategory(voeding);
@@ -81,10 +81,34 @@ public class SQLiteCategoryDatabaseTest {
     public void getCategory_DatabaseException_When_no_category_with_that_name() throws DatabaseException {
         db.getCategory(voeding.getName());
     }
-    
+
     @Test
     public void getAllCategories_Returns_all_categories() throws DatabaseException {
         assertEquals(size, db.getAllCategories().size());
+    }
+
+    @Test
+    public void updateCategory_Update_info_of_the_category() throws DatabaseException, DomainException {
+        db.addCategory(voeding);
+        categoriesToDeleteAfterTest.add(voeding);
+        int sublocations = 15;
+        String color = "#000";
+        voeding.setSublocations(sublocations);
+        voeding.setColor(color);
+        db.updateCategory(voeding);
+        assertEquals(sublocations, db.getCategory(voeding.getName()).getSublocations());
+        assertEquals(color, db.getCategory(voeding.getName()).getColor());
+    }
+
+    @Test(expected = DatabaseException.class)
+    public void updateProduct_DatabaseException_If_product_is_null() throws DatabaseException, DomainException {
+        db.addCategory(voeding);
+        categoriesToDeleteAfterTest.add(voeding);
+        int sublocations = 15;
+        String color = "#000";
+        voeding.setSublocations(sublocations);
+        voeding.setColor(color);
+        db.updateCategory(null);
     }
 
     @Test

@@ -123,7 +123,21 @@ public class SQLiteCategoryDatabase implements CategoryDatabase {
 
     @Override
     public void updateCategory(Category category) throws DatabaseException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (category == null) {
+            throw new DatabaseException(ErrorMessages.CATEGORY_NULL);
+        }
+        String query = "UPDATE category SET sublocations = ?, color = ? WHERE name = ?";
+        initiateStatement(query);
+        try {
+            statement.setInt(1, category.getSublocations());
+            statement.setString(2, category.getColor());
+            statement.setString(3, category.getName());
+            statement.execute();
+        } catch (SQLException e) {
+            throw new DatabaseException(ErrorMessages.DATABASE_FAULT_IN_QUERY, e);
+        } finally {
+            closeConnection();
+        }
     }
 
     @Override
